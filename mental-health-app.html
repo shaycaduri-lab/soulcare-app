@@ -1455,156 +1455,279 @@
     <div class="page" id="page-analysis">
       <div class="page-header">
         <h2>🔬 מנוע הניתוח הקליני</h2>
-        <p>מלאו את 3 השלבים — AI יייצר דוח קליני מקיף עם המלצות טיפוליות מדויקות</p>
+        <p>4 שלבים ← דוח קליני מקיף עם המלצות תרופתיות מדויקות</p>
       </div>
 
       <!-- PROGRESS BAR -->
-      <div style="display:flex;align-items:center;gap:0;margin-bottom:28px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 24px">
-        <div class="step-indicator" id="step-ind-1" style="display:flex;align-items:center;gap:10px;flex:1">
-          <div id="step-circle-1" style="width:36px;height:36px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#0d1117;flex-shrink:0">1</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--teal)">סיפור המטופל</div>
-            <div style="font-size:11px;color:var(--text-muted)">פרטים ורקע</div>
-          </div>
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 20px;overflow-x:auto">
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc1" style="width:32px;height:32px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#0d1117">1</div>
+          <span style="font-size:12px;font-weight:700;color:var(--teal);white-space:nowrap">פרופיל מטופל</span>
         </div>
-        <div style="flex:1;height:2px;background:var(--border);margin:0 8px;position:relative"><div id="progress-line-1" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--teal);transition:width 0.5s"></div></div>
-        <div class="step-indicator" id="step-ind-2" style="display:flex;align-items:center;gap:10px;flex:1">
-          <div id="step-circle-2" style="width:36px;height:36px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--text-muted);flex-shrink:0">2</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--text-muted)" id="step-label-2">תסמינים ודפוסים</div>
-            <div style="font-size:11px;color:var(--text-dim)">מה המטופל חווה</div>
-          </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl1" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--teal);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc2" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text-muted)">2</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap" id="sl2">שאלוני סטנדרט</span>
         </div>
-        <div style="flex:1;height:2px;background:var(--border);margin:0 8px;position:relative"><div id="progress-line-2" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--blue);transition:width 0.5s"></div></div>
-        <div class="step-indicator" id="step-ind-3" style="display:flex;align-items:center;gap:10px;flex:1">
-          <div id="step-circle-3" style="width:36px;height:36px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--text-muted);flex-shrink:0">3</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--text-muted)" id="step-label-3">היסטוריה טיפולית</div>
-            <div style="font-size:11px;color:var(--text-dim)">תרופות ותגובות</div>
-          </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl2" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--blue);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc3" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text-muted)">3</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap" id="sl3">היסטוריה טיפולית</span>
         </div>
-        <div style="flex:1;height:2px;background:var(--border);margin:0 8px;position:relative"><div id="progress-line-3" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--purple);transition:width 0.5s"></div></div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <div id="step-circle-done" style="width:36px;height:36px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📋</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--text-muted)">דוח קליני</div>
-            <div style="font-size:11px;color:var(--text-dim)">ניתוח מלא</div>
-          </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl3" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--purple);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc4" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text-muted)">4</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap" id="sl4">ציר זמן</span>
+        </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl4" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--orange);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc-done" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px">📋</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap">דוח קליני</span>
         </div>
       </div>
 
       <!-- STEP PANELS -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:20px">
+      <div id="analysis-steps">
 
-        <!-- STEP 1 -->
-        <div class="card" id="panel-step-1" style="border-top:3px solid var(--teal)">
-          <div class="card-title">👤 שלב 1 — סיפור המטופל</div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">גיל ומין</label>
-            <input type="text" id="p-age" placeholder="לדוגמה: 34, גבר" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+      <!-- STEP 1: Patient Profile -->
+      <div class="card" id="step-panel-1" style="border-top:3px solid var(--teal);margin-bottom:16px">
+        <div class="card-title">👤 שלב 1 — פרופיל המטופל</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">גיל</label>
+            <input type="number" id="p-age" placeholder="34" min="1" max="120" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">תלונה עיקרית</label>
-            <input type="text" id="p-complaint" placeholder="מה מביא את המטופל לטיפול?" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מין</label>
+            <select id="p-gender" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>גבר</option><option>אישה</option><option>אחר</option>
+            </select>
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">רקע רפואי ומשפחתי</label>
-            <textarea id="p-background" placeholder="מחלות קודמות, אשפוזים, היסטוריה משפחתית..." style="width:100%;height:80px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl;line-height:1.5"></textarea>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מצב משפחתי</label>
+            <select id="p-marital" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>רווק/ה</option><option>נשוי/אה</option><option>גרוש/ה</option><option>אלמן/ה</option>
+            </select>
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">נסיבות חיים נוכחיות</label>
-            <input type="text" id="p-life" placeholder="מצב משפחתי, עבודה, לחצים..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מצב תעסוקתי</label>
+            <select id="p-employment" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>עובד/ת</option><option>מובטל/ת</option><option>סטודנט/ית</option><option>פנסיונר/ית</option><option>אחר</option>
+            </select>
           </div>
-          <div id="step1-check" style="display:none;background:rgba(0,212,170,0.1);border:1px solid var(--teal);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--teal);text-align:center">✅ שלב 1 הושלם</div>
-          <button onclick="completeStep(1)" style="width:100%;margin-top:10px;background:linear-gradient(135deg,var(--teal),#00b894);border:none;border-radius:10px;padding:11px;color:#0d1117;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">שמור ועבור לשלב 2 ←</button>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תלונה עיקרית</label>
+          <input type="text" id="p-complaint" placeholder="מה מביא את המטופל לטיפול?" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">רקע רפואי ומשפחתי</label>
+            <textarea id="p-background" placeholder="מחלות קודמות, אשפוזים, היסטוריה משפחתית..." style="width:100%;height:80px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">נסיבות חיים נוכחיות</label>
+            <textarea id="p-life" placeholder="לחצים, אירועים משמעותיים, תמיכה חברתית..." style="width:100%;height:80px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:8px">תסמינים עיקריים (בחרו הכל שרלוונטי)</label>
+          <div style="display:flex;flex-wrap:wrap;gap:7px" id="symptoms-tags">
+            <span class="sym-tag" onclick="toggleTag(this)">דיכאון</span>
+            <span class="sym-tag" onclick="toggleTag(this)">חרדה כללית</span>
+            <span class="sym-tag" onclick="toggleTag(this)">פאניקה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">נדודי שינה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">הזיות</span>
+            <span class="sym-tag" onclick="toggleTag(this)">פרנויה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">מאניה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">אובדנות</span>
+            <span class="sym-tag" onclick="toggleTag(this)">ריכוז ירוד</span>
+            <span class="sym-tag" onclick="toggleTag(this)">אימפולסיביות</span>
+            <span class="sym-tag" onclick="toggleTag(this)">פלשבקים</span>
+            <span class="sym-tag" onclick="toggleTag(this)">ניתוק</span>
+            <span class="sym-tag" onclick="toggleTag(this)">OCD</span>
+            <span class="sym-tag" onclick="toggleTag(this)">הימנעות חברתית</span>
+            <span class="sym-tag" onclick="toggleTag(this)">שינויי מצב רוח</span>
+            <span class="sym-tag" onclick="toggleTag(this)">עייפות כרונית</span>
+          </div>
+        </div>
+        <button onclick="completeStep(1)" style="width:100%;background:linear-gradient(135deg,var(--teal),#00b894);border:none;border-radius:10px;padding:12px;color:#0d1117;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך לשאלוני סטנדרט ←</button>
+      </div>
+
+      <!-- STEP 2: Standardized Questionnaires -->
+      <div class="card" id="step-panel-2" style="border-top:3px solid var(--blue);margin-bottom:16px;opacity:0.5;pointer-events:none">
+        <div class="card-title">📊 שלב 2 — שאלוני אבחון סטנדרטיים</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">שאלוני PHQ-9 ו-GAD-7 המקובלים בפסיכיאטריה הבינלאומית</p>
+
+        <!-- PHQ-9 -->
+        <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:14px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px">PHQ-9 — סולם דיכאון</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">במהלך השבועיים האחרונים, כמה פעמים סבלתם מהבעיות הבאות? (0=כלל לא, 1=מספר ימים, 2=יותר ממחצית הזמן, 3=כמעט כל יום)</div>
+          <div id="phq9-items"></div>
+          <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:8px;font-size:13px">
+            ציון PHQ-9: <strong id="phq9-score" style="color:var(--blue);font-size:18px">0</strong>/27
+            <span id="phq9-level" style="font-size:11px;color:var(--text-muted);margin-right:8px"></span>
+          </div>
         </div>
 
-        <!-- STEP 2 -->
-        <div class="card" id="panel-step-2" style="border-top:3px solid var(--blue);opacity:0.6">
-          <div class="card-title">🧩 שלב 2 — תסמינים ודפוסים</div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">תסמינים עיקריים</label>
-            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px" id="symptoms-tags">
-              <span class="sym-tag" onclick="toggleTag(this)">דיכאון</span>
-              <span class="sym-tag" onclick="toggleTag(this)">חרדה</span>
-              <span class="sym-tag" onclick="toggleTag(this)">נדודי שינה</span>
-              <span class="sym-tag" onclick="toggleTag(this)">פאניקה</span>
-              <span class="sym-tag" onclick="toggleTag(this)">הזיות</span>
-              <span class="sym-tag" onclick="toggleTag(this)">פרנויה</span>
-              <span class="sym-tag" onclick="toggleTag(this)">מאניה</span>
-              <span class="sym-tag" onclick="toggleTag(this)">אובדנות</span>
-              <span class="sym-tag" onclick="toggleTag(this)">ריכוז ירוד</span>
-              <span class="sym-tag" onclick="toggleTag(this)">אימפולסיביות</span>
-              <span class="sym-tag" onclick="toggleTag(this)">פלשבקים</span>
-              <span class="sym-tag" onclick="toggleTag(this)">ניתוק</span>
-            </div>
+        <!-- GAD-7 -->
+        <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:14px;border:1px solid var(--border)">
+          <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:4px">GAD-7 — סולם חרדה</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">במהלך השבועיים האחרונים: (0=כלל לא, 1=מספר ימים, 2=יותר ממחצית הזמן, 3=כמעט כל יום)</div>
+          <div id="gad7-items"></div>
+          <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:8px;font-size:13px">
+            ציון GAD-7: <strong id="gad7-score" style="color:var(--purple);font-size:18px">0</strong>/21
+            <span id="gad7-level" style="font-size:11px;color:var(--text-muted);margin-right:8px"></span>
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">עוצמה ומשך (1-10)</label>
-            <div style="display:flex;align-items:center;gap:10px">
-              <input type="range" id="p-severity" min="1" max="10" value="5" oninput="document.getElementById('severity-val').textContent=this.value" style="flex:1;accent-color:var(--blue)">
-              <span id="severity-val" style="font-size:18px;font-weight:800;color:var(--blue);min-width:24px">5</span>
-            </div>
+        </div>
+
+        <button onclick="completeStep(2)" style="width:100%;background:linear-gradient(135deg,var(--blue),#1a6fd4);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך להיסטוריה טיפולית ←</button>
+      </div>
+
+      <!-- STEP 3: Treatment History -->
+      <div class="card" id="step-panel-3" style="border-top:3px solid var(--purple);margin-bottom:16px;opacity:0.5;pointer-events:none">
+        <div class="card-title">💊 שלב 3 — היסטוריה טיפולית</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תרופות שניסה בעבר</label>
+            <textarea id="p-prev-meds" placeholder="שם תרופה, מינון, משך, תגובה, תופעות לוואי..." style="width:100%;height:90px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">משך התסמינים</label>
-            <select id="p-duration" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תרופות נוכחיות ומינון</label>
+            <textarea id="p-current-meds" placeholder="תרופות שנוטל כיום..." style="width:100%;height:90px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">טיפולים פסיכותרפיים</label>
+            <input type="text" id="p-therapy" placeholder="CBT, DBT, EMDR, פסיכודינמי..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">אלרגיות ומגבלות רפואיות</label>
+            <input type="text" id="p-allergies" placeholder="אלרגיות לתרופות, מחלות לב, כליות..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תגובה כללית לטיפולים קודמים</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="לא ניסה טיפול"> לא ניסה</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="תגובה טובה"> תגובה טובה</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="תגובה חלקית"> תגובה חלקית</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="עמיד לטיפול"> עמיד לטיפול</label>
+          </div>
+        </div>
+        <button onclick="completeStep(3)" style="width:100%;background:linear-gradient(135deg,var(--purple),#8e44ad);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך לציר זמן ←</button>
+      </div>
+
+      <!-- STEP 4: Timeline -->
+      <div class="card" id="step-panel-4" style="border-top:3px solid var(--orange);margin-bottom:16px;opacity:0.5;pointer-events:none">
+        <div class="card-title">⏱️ שלב 4 — ציר זמן ואירועים מפעילים</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מתי התחילו התסמינים?</label>
+            <select id="p-onset" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
               <option>פחות מחודש</option>
               <option>1-3 חודשים</option>
               <option>3-6 חודשים</option>
               <option>6-12 חודשים</option>
-              <option>יותר משנה</option>
-              <option>כרוני - שנים</option>
+              <option>1-3 שנים</option>
+              <option>יותר מ-3 שנים</option>
+              <option>מילדות/נעורים</option>
             </select>
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">תיאור נוסף של הדפוסים</label>
-            <textarea id="p-patterns" placeholder="מתי מחמיר? מה עוזר? דפוסים חוזרים שנצפו..." style="width:100%;height:70px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl;line-height:1.5"></textarea>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">אופי ההתפתחות</label>
+            <select id="p-progression" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>פתאומי</option>
+              <option>הדרגתי</option>
+              <option>מחזורי (גאות ושפל)</option>
+              <option>אפיזודי</option>
+              <option>כרוני ויציב</option>
+              <option>מחמיר עם הזמן</option>
+            </select>
           </div>
-          <div id="step2-check" style="display:none;background:rgba(56,139,253,0.1);border:1px solid var(--blue);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--blue);text-align:center">✅ שלב 2 הושלם</div>
-          <button onclick="completeStep(2)" style="width:100%;margin-top:10px;background:linear-gradient(135deg,var(--blue),#1a6fd4);border:none;border-radius:10px;padding:11px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">שמור ועבור לשלב 3 ←</button>
         </div>
-
-        <!-- STEP 3 -->
-        <div class="card" id="panel-step-3" style="border-top:3px solid var(--purple);opacity:0.6">
-          <div class="card-title">💊 שלב 3 — היסטוריה טיפולית</div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">תרופות שניסה בעבר</label>
-            <textarea id="p-prev-meds" placeholder="שם תרופה, מינון, משך, האם עזר, תופעות לוואי..." style="width:100%;height:80px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl;line-height:1.5"></textarea>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">אירוע מפעיל ידוע</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span class="sym-tag" onclick="toggleTag(this)">אובדן/אבל</span>
+            <span class="sym-tag" onclick="toggleTag(this)">טראומה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">גירושין/פרידה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">אובדן עבודה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">לידה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">מחלה גופנית</span>
+            <span class="sym-tag" onclick="toggleTag(this)">שינוי תרופה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">ללא אירוע ידוע</span>
           </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">תרופות נוכחיות</label>
-            <input type="text" id="p-current-meds" placeholder="תרופות שנוטל כיום ומינון" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
-          </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">טיפולים פסיכותרפיים</label>
-            <input type="text" id="p-therapy" placeholder="CBT, DBT, EMDR, פסיכודינמי..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
-          </div>
-          <div style="margin-bottom:12px">
-            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:6px">אלרגיות ומגבלות</label>
-            <input type="text" id="p-allergies" placeholder="אלרגיות לתרופות, מחלות פנימיות..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
-          </div>
-          <div id="step3-check" style="display:none;background:rgba(163,113,247,0.1);border:1px solid var(--purple);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--purple);text-align:center">✅ שלב 3 הושלם</div>
-          <button onclick="completeStep(3)" style="width:100%;margin-top:10px;background:linear-gradient(135deg,var(--purple),#8e44ad);border:none;border-radius:10px;padding:11px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">✨ צור דוח קליני מלא</button>
         </div>
-
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">השפעה על תפקוד יומיומי</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input type="range" id="p-functioning" min="1" max="10" value="5" oninput="document.getElementById('func-val').textContent=this.value" style="flex:1;accent-color:var(--orange)">
+              <span id="func-val" style="font-size:18px;font-weight:800;color:var(--orange);min-width:24px">5</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim)"><span>פגיעה קשה</span><span>תפקוד מלא</span></div>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">גורמים מחמירים/משפרים</label>
+            <input type="text" id="p-modifiers" placeholder="מה מחמיר? מה עוזר?" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">הערות קליניות נוספות</label>
+          <textarea id="p-extra-notes" placeholder="תצפיות מהפגישה, שפת גוף, דפוסים שנצפו, מידע ממשפחה..." style="width:100%;height:70px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+        </div>
+        <button onclick="completeStep(4)" style="width:100%;background:linear-gradient(135deg,var(--orange),#e67e22);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">✨ צור דוח קליני מלא</button>
       </div>
+
+      </div><!-- /analysis-steps -->
 
       <!-- FINAL REPORT -->
       <div class="card" id="final-report-card" style="display:none;border:2px solid var(--teal)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
           <div>
-            <div class="card-title" style="margin-bottom:4px;font-size:18px">📋 דוח קליני מקיף</div>
-            <div style="font-size:12px;color:var(--text-muted)" id="report-timestamp"></div>
+            <div style="font-size:20px;font-weight:800;color:var(--text)">📋 דוח קליני — SoulCare AI</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px" id="report-timestamp"></div>
           </div>
-          <div style="display:flex;gap:8px">
-            <button onclick="copyReport()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:13px;cursor:pointer">📋 העתק</button>
-            <button onclick="resetAnalysis()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:13px;cursor:pointer">🔄 ניתוח חדש</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="copyReport()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:12px;cursor:pointer">📋 העתק</button>
+            <button onclick="printReport()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:12px;cursor:pointer">🖨️ הדפס</button>
+            <button onclick="resetAnalysis()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:12px;cursor:pointer">🔄 ניתוח חדש</button>
           </div>
         </div>
-        <div id="final-report-text" style="font-size:14px;line-height:2;color:var(--text);white-space:pre-wrap;padding:20px;background:var(--surface2);border-radius:12px;border:1px solid var(--border)"></div>
+
+        <!-- Scores summary bar -->
+        <div id="scores-bar" style="display:none;background:var(--surface2);border-radius:12px;padding:16px;margin-bottom:20px;display:flex;gap:20px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">PHQ-9</div>
+            <div id="rep-phq9" style="font-size:24px;font-weight:800;color:var(--blue)">-</div>
+            <div id="rep-phq9-lvl" style="font-size:11px;color:var(--text-muted)"></div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">GAD-7</div>
+            <div id="rep-gad7" style="font-size:24px;font-weight:800;color:var(--purple)">-</div>
+            <div id="rep-gad7-lvl" style="font-size:11px;color:var(--text-muted)"></div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">תפקוד</div>
+            <div id="rep-func" style="font-size:24px;font-weight:800;color:var(--orange)">-</div>
+            <div style="font-size:11px;color:var(--text-muted)">מתוך 10</div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">תסמינים</div>
+            <div id="rep-symptoms" style="font-size:24px;font-weight:800;color:var(--teal)">-</div>
+            <div style="font-size:11px;color:var(--text-muted)">שנבחרו</div>
+          </div>
+        </div>
+
+        <div id="final-report-text" style="font-size:14px;line-height:2;color:var(--text);white-space:pre-wrap;padding:20px;background:var(--surface2);border-radius:12px;border:1px solid var(--border);min-height:200px"></div>
+
         <div style="margin-top:16px;background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:10px;padding:14px 18px;font-size:12px;color:var(--orange);line-height:1.7">
-          ⚕️ <strong>הבהרה משפטית וקלינית חשובה:</strong> כל המלצות הטיפול התרופתי בדוח זה הן הצעות בלבד המבוססות על AI ועל הנתונים שהוזנו. <strong>ההחלטה הסופית על כל טיפול תרופתי היא באחריות הרופא המטפל בלבד</strong>, בהתאם לבדיקה קלינית מלאה, שיקול דעת מקצועי וחוקי הרפואה.
+          ⚕️ <strong>הבהרה משפטית וקלינית חשובה:</strong> כל המלצות הטיפול התרופתי בדוח זה הן הצעות בלבד המבוססות על AI ועל הנתונים שהוזנו. <strong>ההחלטה הסופית על כל טיפול תרופתי — כולל שם התרופה, המינון והמשך הטיפול — היא באחריות הרופא המטפל בלבד</strong>, בהתאם לבדיקה קלינית מלאה, שיקול דעת מקצועי וחוקי הרפואה.
         </div>
       </div>
 
@@ -2294,77 +2417,173 @@ function renderPatientsTable() {
 }
 
 // ============================================================
-// CLINICAL ENGINE — 3 STEP ANALYSIS
+// CLINICAL ENGINE v2 — 4 STEP ANALYSIS
 // ============================================================
 
-var clinicalData = { step1: null, step2: null, step3: null };
+var clinicalData = { step1: null, step2: null, step3: null, step4: null };
+
+var PHQ9_QUESTIONS = [
+  'ענין או הנאה קטנה בעשיית דברים',
+  'תחושת עצב, דיכאון או ייאוש',
+  'קושי להירדם או שינה מרובה',
+  'תחושת עייפות או מיעוט אנרגיה',
+  'תיאבון ירוד או אכילת יתר',
+  'תחושת רע עם עצמך — כישלון או אכזבה מהמשפחה',
+  'קושי להתרכז בדברים',
+  'תנועה או דיבור איטי/עצבני מהרגיל',
+  'מחשבות שעדיף לא להיות חי, או לפגוע בעצמך'
+];
+
+var GAD7_QUESTIONS = [
+  'תחושת עצבנות, חרדה או מתח',
+  'חוסר יכולת לעצור או לשלוט בדאגות',
+  'דאגה מוגזמת לגבי דברים שונים',
+  'קושי להירגע',
+  'חוסר מנוחה שקשה לשבת בשקט',
+  'קלות רגזנות או עצבנות',
+  'תחושת פחד שמשהו רע עלול לקרות'
+];
 
 function renderAnalysis() {
-  var dateEl = document.getElementById('summary-date');
-  if (dateEl) dateEl.value = new Date().toISOString().split('T')[0];
+  renderPHQ9();
+  renderGAD7();
+}
+
+function renderPHQ9() {
+  var container = document.getElementById('phq9-items');
+  if (!container) return;
+  var html = '';
+  PHQ9_QUESTIONS.forEach(function(q, i) {
+    html += '<div style="margin-bottom:10px;padding:10px;background:var(--surface);border-radius:8px">';
+    html += '<div style="font-size:12px;color:var(--text);margin-bottom:6px;font-weight:600">' + (i+1) + '. ' + q + '</div>';
+    html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+    ['0 - כלל לא','1 - מספר ימים','2 - מחצית הזמן','3 - כמעט כל יום'].forEach(function(opt, v) {
+      html += '<label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;background:var(--surface2);padding:4px 8px;border-radius:6px;border:1px solid var(--border)">';
+      html += '<input type="radio" name="phq9-' + i + '" value="' + v + '" onchange="updatePHQ9Score()"> ' + opt + '</label>';
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function renderGAD7() {
+  var container = document.getElementById('gad7-items');
+  if (!container) return;
+  var html = '';
+  GAD7_QUESTIONS.forEach(function(q, i) {
+    html += '<div style="margin-bottom:10px;padding:10px;background:var(--surface);border-radius:8px">';
+    html += '<div style="font-size:12px;color:var(--text);margin-bottom:6px;font-weight:600">' + (i+1) + '. ' + q + '</div>';
+    html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+    ['0 - כלל לא','1 - מספר ימים','2 - מחצית הזמן','3 - כמעט כל יום'].forEach(function(opt, v) {
+      html += '<label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;background:var(--surface2);padding:4px 8px;border-radius:6px;border:1px solid var(--border)">';
+      html += '<input type="radio" name="gad7-' + i + '" value="' + v + '" onchange="updateGAD7Score()"> ' + opt + '</label>';
+    });
+    html += '</div></div>';
+  });
+  container.innerHTML = html;
+}
+
+function updatePHQ9Score() {
+  var total = 0;
+  for (var i = 0; i < 9; i++) {
+    var el = document.querySelector('input[name="phq9-' + i + '"]:checked');
+    if (el) total += parseInt(el.value);
+  }
+  var el = document.getElementById('phq9-score');
+  if (el) el.textContent = total;
+  var lvl = total <= 4 ? 'מינימלי' : total <= 9 ? 'קל' : total <= 14 ? 'בינוני' : total <= 19 ? 'בינוני-חמור' : 'חמור';
+  var lvlEl = document.getElementById('phq9-level');
+  if (lvlEl) lvlEl.textContent = '— ' + lvl;
+}
+
+function updateGAD7Score() {
+  var total = 0;
+  for (var i = 0; i < 7; i++) {
+    var el = document.querySelector('input[name="gad7-' + i + '"]:checked');
+    if (el) total += parseInt(el.value);
+  }
+  var el = document.getElementById('gad7-score');
+  if (el) el.textContent = total;
+  var lvl = total <= 4 ? 'מינימלי' : total <= 9 ? 'קל' : total <= 14 ? 'בינוני' : 'חמור';
+  var lvlEl = document.getElementById('gad7-level');
+  if (lvlEl) lvlEl.textContent = '— ' + lvl;
 }
 
 function toggleTag(el) {
   el.classList.toggle('selected');
 }
 
-function getSelectedSymptoms() {
-  var tags = document.querySelectorAll('.sym-tag.selected');
+function getSelectedTags(containerId) {
+  var container = containerId ? document.getElementById(containerId) : document.getElementById('symptoms-tags');
+  if (!container) return '';
+  var tags = container.querySelectorAll('.sym-tag.selected');
   var result = [];
   tags.forEach(function(t) { result.push(t.textContent); });
   return result.join(', ');
+}
+
+function activateStep(step, color) {
+  var panel = document.getElementById('step-panel-' + step);
+  if (panel) { panel.style.opacity = '1'; panel.style.pointerEvents = 'auto'; }
+  var circle = document.getElementById('sc' + step);
+  if (circle) { circle.style.background = color; circle.style.color = step <= 2 ? '#fff' : '#fff'; circle.style.border = 'none'; }
+  var label = document.getElementById('sl' + step);
+  if (label) label.style.color = color;
+  var prevLine = document.getElementById('pl' + (step-1));
+  if (prevLine) prevLine.style.width = '100%';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function completeStep(step) {
   if (step === 1) {
     var age = document.getElementById('p-age').value.trim();
     var complaint = document.getElementById('p-complaint').value.trim();
-    if (!age || !complaint) { alert('אנא מלאו לפחות גיל ותלונה עיקרית'); return; }
+    if (!age || !complaint) { alert('אנא מלאו גיל ותלונה עיקרית'); return; }
     clinicalData.step1 = {
       age: age,
+      gender: document.getElementById('p-gender').value,
+      marital: document.getElementById('p-marital').value,
+      employment: document.getElementById('p-employment').value,
       complaint: complaint,
       background: document.getElementById('p-background').value.trim(),
-      life: document.getElementById('p-life').value.trim()
+      life: document.getElementById('p-life').value.trim(),
+      symptoms: getSelectedTags('symptoms-tags')
     };
-    document.getElementById('step1-check').style.display = 'block';
-    document.getElementById('step-circle-2').style.background = 'var(--blue)';
-    document.getElementById('step-circle-2').style.color = '#fff';
-    document.getElementById('step-circle-2').style.border = 'none';
-    document.getElementById('step-label-2').style.color = 'var(--blue)';
-    document.getElementById('panel-step-2').style.opacity = '1';
-    document.getElementById('progress-line-1').style.width = '100%';
-    document.getElementById('panel-step-2').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    activateStep(2, 'var(--blue)');
   }
 
   if (step === 2) {
-    var syms = getSelectedSymptoms();
-    if (!syms) { alert('אנא בחרו לפחות תסמין אחד'); return; }
-    clinicalData.step2 = {
-      symptoms: syms,
-      severity: document.getElementById('p-severity').value,
-      duration: document.getElementById('p-duration').value,
-      patterns: document.getElementById('p-patterns').value.trim()
-    };
-    document.getElementById('step2-check').style.display = 'block';
-    document.getElementById('step-circle-3').style.background = 'var(--purple)';
-    document.getElementById('step-circle-3').style.color = '#fff';
-    document.getElementById('step-circle-3').style.border = 'none';
-    document.getElementById('step-label-3').style.color = 'var(--purple)';
-    document.getElementById('panel-step-3').style.opacity = '1';
-    document.getElementById('progress-line-2').style.width = '100%';
-    document.getElementById('panel-step-3').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    var phq9 = parseInt(document.getElementById('phq9-score').textContent) || 0;
+    var gad7 = parseInt(document.getElementById('gad7-score').textContent) || 0;
+    var phq9Lvl = phq9 <= 4 ? 'מינימלי' : phq9 <= 9 ? 'קל' : phq9 <= 14 ? 'בינוני' : phq9 <= 19 ? 'בינוני-חמור' : 'חמור';
+    var gad7Lvl = gad7 <= 4 ? 'מינימלי' : gad7 <= 9 ? 'קל' : gad7 <= 14 ? 'בינוני' : 'חמור';
+    clinicalData.step2 = { phq9: phq9, phq9Level: phq9Lvl, gad7: gad7, gad7Level: gad7Lvl };
+    activateStep(3, 'var(--purple)');
   }
 
   if (step === 3) {
+    var prevResp = document.querySelector('input[name="prev-response"]:checked');
     clinicalData.step3 = {
       prevMeds: document.getElementById('p-prev-meds').value.trim(),
       currentMeds: document.getElementById('p-current-meds').value.trim(),
       therapy: document.getElementById('p-therapy').value.trim(),
-      allergies: document.getElementById('p-allergies').value.trim()
+      allergies: document.getElementById('p-allergies').value.trim(),
+      prevResponse: prevResp ? prevResp.value : 'לא צוין'
     };
-    document.getElementById('step3-check').style.display = 'block';
-    document.getElementById('progress-line-3').style.width = '100%';
-    document.getElementById('step-circle-done').style.background = 'var(--green)';
+    activateStep(4, 'var(--orange)');
+  }
+
+  if (step === 4) {
+    clinicalData.step4 = {
+      onset: document.getElementById('p-onset').value,
+      progression: document.getElementById('p-progression').value,
+      triggers: getSelectedTags(),
+      functioning: document.getElementById('p-functioning').value,
+      modifiers: document.getElementById('p-modifiers').value.trim(),
+      notes: document.getElementById('p-extra-notes').value.trim()
+    };
+    document.getElementById('pl4').style.width = '100%';
+    document.getElementById('sc-done').style.background = 'var(--teal)';
     generateFinalReport();
   }
 }
@@ -2376,42 +2595,60 @@ async function generateFinalReport() {
   reportCard.scrollIntoView({ behavior: 'smooth' });
 
   var ts = document.getElementById('report-timestamp');
-  if (ts) ts.textContent = 'נוצר: ' + new Date().toLocaleString('he-IL');
+  if (ts) ts.textContent = 'נוצר: ' + new Date().toLocaleString('he-IL') + ' | SoulCare Clinical AI v2';
 
-  reportText.innerHTML = '<div class="typing-indicator" style="padding:20px"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><div style="font-size:13px;color:var(--text-muted);padding:0 20px 10px">AI מנתח את כל הנתונים ומייצר דוח קליני מקיף...</div>';
+  // Show scores bar
+  var scoresBar = document.getElementById('scores-bar');
+  if (scoresBar) {
+    scoresBar.style.display = 'flex';
+    document.getElementById('rep-phq9').textContent = clinicalData.step2.phq9;
+    document.getElementById('rep-phq9-lvl').textContent = clinicalData.step2.phq9Level;
+    document.getElementById('rep-gad7').textContent = clinicalData.step2.gad7;
+    document.getElementById('rep-gad7-lvl').textContent = clinicalData.step2.gad7Level;
+    document.getElementById('rep-func').textContent = clinicalData.step4.functioning;
+    document.getElementById('rep-symptoms').textContent = clinicalData.step1.symptoms.split(',').filter(function(s){return s.trim();}).length;
+  }
+
+  reportText.innerHTML = '<div class="typing-indicator" style="padding:30px;justify-content:center"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><div style="text-align:center;font-size:13px;color:var(--text-muted);padding-bottom:20px">AI מנתח את כל הנתונים... כ-30 שניות</div>';
 
   var d1 = clinicalData.step1;
   var d2 = clinicalData.step2;
   var d3 = clinicalData.step3;
+  var d4 = clinicalData.step4;
 
-  var sys = 'אתה פסיכיאטר בכיר ומומחה לניתוח קליני. עליך לכתוב דוח קליני מקיף, מובנה ומקצועי בעברית. הדוח צריך לעזור לפסיכיאטר המטפל לקבל תמונה ברורה ולקבל החלטות מושכלות.';
+  var sys = 'אתה פסיכיאטר בכיר עם ניסיון של 20 שנה. אתה כותב דוחות קליניים מקיפים ומדויקים. ענה תמיד בעברית בלבד. הדוח צריך להיות מקצועי, מובנה ומפורט.';
 
-  var prompt = 'צור דוח קליני מקיף עבור המטופל הבא:\n\n';
-  prompt += '=== נתוני המטופל ===\n';
-  prompt += 'גיל ומין: ' + d1.age + '\n';
+  var prompt = 'כתוב דוח קליני מקיף ומפורט עבור המטופל הבא.\n\n';
+  prompt += '=== פרופיל ===\n';
+  prompt += 'גיל: ' + d1.age + ' | מין: ' + d1.gender + ' | מצב משפחתי: ' + d1.marital + ' | תעסוקה: ' + d1.employment + '\n';
   prompt += 'תלונה עיקרית: ' + d1.complaint + '\n';
-  prompt += 'רקע רפואי ומשפחתי: ' + (d1.background || 'לא צוין') + '\n';
+  prompt += 'תסמינים: ' + (d1.symptoms || 'לא צוין') + '\n';
+  prompt += 'רקע רפואי: ' + (d1.background || 'לא צוין') + '\n';
   prompt += 'נסיבות חיים: ' + (d1.life || 'לא צוין') + '\n\n';
-  prompt += '=== תסמינים ===\n';
-  prompt += 'תסמינים מזוהים: ' + d2.symptoms + '\n';
-  prompt += 'עוצמה: ' + d2.severity + '/10\n';
-  prompt += 'משך: ' + d2.duration + '\n';
-  prompt += 'דפוסים: ' + (d2.patterns || 'לא צוין') + '\n\n';
+  prompt += '=== שאלוני סטנדרט ===\n';
+  prompt += 'PHQ-9: ' + d2.phq9 + '/27 (' + d2.phq9Level + ')\n';
+  prompt += 'GAD-7: ' + d2.gad7 + '/21 (' + d2.gad7Level + ')\n\n';
   prompt += '=== היסטוריה טיפולית ===\n';
   prompt += 'תרופות קודמות: ' + (d3.prevMeds || 'לא צוין') + '\n';
   prompt += 'תרופות נוכחיות: ' + (d3.currentMeds || 'לא צוין') + '\n';
-  prompt += 'טיפולים פסיכותרפיים: ' + (d3.therapy || 'לא צוין') + '\n';
-  prompt += 'אלרגיות ומגבלות: ' + (d3.allergies || 'לא צוין') + '\n\n';
-  prompt += 'צור דוח קליני מקיף הכולל את הסעיפים הבאים:\n\n';
-  prompt += '1. סיכום קליני — תמונה כוללת של המטופל\n';
-  prompt += '2. אבחנות מבדלות — מדורגות לפי סבירות עם הסבר\n';
-  prompt += '3. דגלים אדומים — תסמינים הדורשים תשומת לב מיידית\n';
-  prompt += '4. דפוסים מוסתרים — תובנות שאולי לא ברורות מיד\n';
-  prompt += '5. המלצות טיפול תרופתי — קבוצות תרופות מומלצות לפי הפרופיל, עם הסבר לכל אחת. ציין בפירוש שכל החלטה תרופתית היא באחריות הרופא המטפל בלבד\n';
-  prompt += '6. המלצות טיפול פסיכותרפי — גישות מומלצות\n';
-  prompt += '7. שאלות בירור לפגישה הבאה — שאלות ממוקדות שיעזרו להשלים התמונה\n';
-  prompt += '8. מדדי הצלחה — כיצד לעקוב אחר ההתקדמות\n\n';
-  prompt += 'כתוב בצורה מקצועית, ברורה ומובנית. השתמש בכותרות ורשימות.';
+  prompt += 'טיפול פסיכותרפי: ' + (d3.therapy || 'לא צוין') + '\n';
+  prompt += 'אלרגיות/מגבלות: ' + (d3.allergies || 'לא צוין') + '\n';
+  prompt += 'תגובה לטיפולים קודמים: ' + d3.prevResponse + '\n\n';
+  prompt += '=== ציר זמן ===\n';
+  prompt += 'התחלת תסמינים: ' + d4.onset + ' | התפתחות: ' + d4.progression + '\n';
+  prompt += 'אירועים מפעילים: ' + (d4.triggers || 'לא צוין') + '\n';
+  prompt += 'תפקוד יומיומי: ' + d4.functioning + '/10\n';
+  prompt += 'גורמים מחמירים/משפרים: ' + (d4.modifiers || 'לא צוין') + '\n';
+  prompt += 'הערות קליניות: ' + (d4.notes || 'לא צוין') + '\n\n';
+  prompt += 'כתוב דוח קליני מלא עם הסעיפים הבאים:\n\n';
+  prompt += '━━━ 1. סיכום קליני ━━━\n[תיאור תמציתי של המטופל והמצב]\n\n';
+  prompt += '━━━ 2. אבחנות מבדלות ━━━\n[רשום 3-5 אבחנות מדורגות לפי סבירות, עם אחוז ביטחון לכל אחת ונימוק]\n\n';
+  prompt += '━━━ 3. דגלים אדומים ━━━\n[תסמינים הדורשים תשומת לב מיידית]\n\n';
+  prompt += '━━━ 4. ניתוח פסיכומטרי ━━━\n[פרשנות ציוני PHQ-9 ו-GAD-7 בהקשר הקליני]\n\n';
+  prompt += '━━━ 5. המלצות טיפול תרופתי ━━━\n[זה הסעיף החשוב ביותר. רשום טבלה מפורטת של 3-5 תרופות מומלצות:\nלכל תרופה: שם גנרי + מסחרי, קבוצה תרופתית, מינון התחלתי מומלץ, מינון יעד, יתרונות לפרופיל זה, חסרונות/תופעות לוואי, התוויות נגד רלוונטיות. ציין בבירור שכל החלטה היא באחריות הרופא.]\n\n';
+  prompt += '━━━ 6. המלצות פסיכותרפיות ━━━\n[גישות טיפוליות מומלצות עם נימוק]\n\n';
+  prompt += '━━━ 7. שאלות בירור לפגישה הבאה ━━━\n[5-7 שאלות ממוקדות]\n\n';
+  prompt += '━━━ 8. מדדי הצלחה ומעקב ━━━\n[כיצד לעקוב אחר ההתקדמות, מה להעריך מחדש]';
 
   try {
     var reply = await callClaude(prompt, sys);
@@ -2424,32 +2661,43 @@ async function generateFinalReport() {
 function copyReport() {
   var text = document.getElementById('final-report-text');
   if (!text || !text.textContent.trim()) { alert('הדוח עדיין לא נוצר'); return; }
-  navigator.clipboard.writeText(text.textContent).then(function() { alert('הדוח הועתק ללוח!'); });
+  navigator.clipboard.writeText(text.textContent).then(function() { alert('הדוח הועתק!'); });
+}
+
+function printReport() {
+  var text = document.getElementById('final-report-text');
+  if (!text || !text.textContent.trim()) { alert('הדוח עדיין לא נוצר'); return; }
+  var win = window.open('', '_blank');
+  win.document.write('<html dir="rtl"><head><title>דוח קליני SoulCare</title><style>body{font-family:Arial,sans-serif;padding:30px;line-height:1.8;font-size:14px;direction:rtl}pre{white-space:pre-wrap;font-family:Arial,sans-serif}</style></head><body><pre>' + text.textContent + '</pre></body></html>');
+  win.document.close();
+  win.print();
 }
 
 function resetAnalysis() {
-  clinicalData = { step1: null, step2: null, step3: null };
+  clinicalData = { step1: null, step2: null, step3: null, step4: null };
   document.getElementById('final-report-card').style.display = 'none';
   document.querySelectorAll('.sym-tag').forEach(function(t) { t.classList.remove('selected'); });
-  ['p-age','p-complaint','p-background','p-life','p-patterns','p-prev-meds','p-current-meds','p-therapy','p-allergies'].forEach(function(id) {
+  ['p-age','p-complaint','p-background','p-life','p-prev-meds','p-current-meds','p-therapy','p-allergies','p-modifiers','p-extra-notes'].forEach(function(id) {
     var el = document.getElementById(id); if (el) el.value = '';
   });
-  ['step1-check','step2-check','step3-check'].forEach(function(id) {
-    var el = document.getElementById(id); if (el) el.style.display = 'none';
+  [2,3,4].forEach(function(s) {
+    var panel = document.getElementById('step-panel-' + s);
+    if (panel) { panel.style.opacity = '0.5'; panel.style.pointerEvents = 'none'; }
   });
-  document.getElementById('panel-step-2').style.opacity = '0.6';
-  document.getElementById('panel-step-3').style.opacity = '0.6';
-  ['progress-line-1','progress-line-2','progress-line-3'].forEach(function(id) {
+  ['pl1','pl2','pl3','pl4'].forEach(function(id) {
     var el = document.getElementById(id); if (el) el.style.width = '0%';
   });
+  renderPHQ9();
+  renderGAD7();
 }
 
-function setResearchQuery(el) { }
-function analyzeCase() { }
-function searchResearch() { }
-function detectPatterns() { }
-function generateSummary() { }
-function copySummary() { }
+function setResearchQuery(el) {}
+function analyzeCase() {}
+function searchResearch() {}
+function detectPatterns() {}
+function generateSummary() {}
+function copySummary() {}
+
 // ============================================================
 // TABS
 // ============================================================
