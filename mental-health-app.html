@@ -1,0 +1,2920 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoulCare | בריאות הנפש החכמה</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2330;
+    --border: #30363d;
+    --teal: #00d4aa;
+    --teal-dim: #00d4aa22;
+    --blue: #388bfd;
+    --purple: #a371f7;
+    --orange: #f0883e;
+    --red: #f85149;
+    --green: #3fb950;
+    --text: #e6edf3;
+    --text-muted: #7d8590;
+    --text-dim: #484f58;
+    --radius: 12px;
+    --shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* SETUP SCREEN */
+  #setup-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, #00d4aa15 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 80%, #388bfd12 0%, transparent 50%),
+                var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+
+  .setup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: var(--shadow), 0 0 60px rgba(0,212,170,0.08);
+    animation: fadeUp 0.6s ease;
+  }
+
+  .setup-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .logo-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, var(--teal), var(--blue));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+
+  .logo-text h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .logo-text p {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .setup-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .setup-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .setup-field { margin-bottom: 20px; }
+
+  .setup-field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .setup-field input, .setup-field select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    direction: ltr;
+    transition: border-color 0.2s;
+  }
+
+  .setup-field input:focus, .setup-field select:focus {
+    outline: none;
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px var(--teal-dim);
+  }
+
+  .role-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .role-btn {
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .role-btn:hover { border-color: var(--teal); }
+  .role-btn.active {
+    border-color: var(--teal);
+    background: var(--teal-dim);
+  }
+
+  .role-btn .role-icon { font-size: 28px; margin-bottom: 8px; }
+  .role-btn .role-label { font-size: 14px; font-weight: 600; }
+  .role-btn .role-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  .btn-primary {
+    width: 100%;
+    background: linear-gradient(135deg, var(--teal), #00b894);
+    border: none;
+    border-radius: var(--radius);
+    padding: 14px;
+    color: #0d1117;
+    font-family: 'Heebo', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(0,212,170,0.3);
+  }
+
+  .api-warning {
+    background: rgba(240,136,62,0.1);
+    border: 1px solid rgba(240,136,62,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--orange);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  /* MAIN APP */
+  #app { display: none; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    right: 0; top: 0; bottom: 0;
+    width: 260px;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s;
+  }
+
+  .sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .sidebar-logo {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--teal), var(--blue));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--teal);
+  }
+
+  .user-info {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .user-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .user-role {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .role-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  .role-badge.psychiatrist {
+    background: rgba(163,113,247,0.2);
+    color: var(--purple);
+  }
+
+  .role-badge.patient {
+    background: rgba(0,212,170,0.15);
+    color: var(--teal);
+  }
+
+  nav { flex: 1; padding: 12px 0; overflow-y: auto; }
+
+  .nav-section {
+    padding: 8px 20px 4px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-right: 3px solid transparent;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .nav-item:hover { background: var(--surface2); color: var(--text); }
+  .nav-item.active {
+    background: rgba(0,212,170,0.08);
+    color: var(--teal);
+    border-right-color: var(--teal);
+  }
+
+  .nav-item .nav-icon { font-size: 18px; width: 22px; text-align: center; }
+
+  .alert-badge {
+    margin-right: auto;
+    background: var(--red);
+    color: white;
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* MAIN CONTENT */
+  .main-content {
+    margin-right: 260px;
+    min-height: 100vh;
+    padding: 32px;
+    background: radial-gradient(ellipse at 80% 10%, #00d4aa08 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 90%, #388bfd06 0%, transparent 40%),
+                var(--bg);
+  }
+
+  .page { display: none; animation: fadeUp 0.4s ease; }
+  .page.active { display: block; }
+
+  .page-header {
+    margin-bottom: 28px;
+  }
+
+  .page-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+
+  .page-header p {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    transition: transform 0.2s;
+  }
+
+  .stat-card:hover { transform: translateY(-2px); }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* MOOD TRACKER */
+  .mood-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .mood-day {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 11px;
+    color: var(--text-muted);
+    gap: 4px;
+  }
+
+  .mood-day:hover { border-color: var(--teal); transform: scale(1.05); }
+  .mood-day.filled { border-color: transparent; color: rgba(0,0,0,0.7); font-weight: 600; }
+  .mood-day .mood-emoji { font-size: 20px; }
+
+  .mood-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .mood-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .mood-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+
+  /* TODAY'S ENTRY */
+  .mood-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .mood-btn {
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 70px;
+  }
+
+  .mood-btn span { font-size: 11px; color: var(--text-muted); }
+  .mood-btn:hover { border-color: var(--teal); transform: translateY(-2px); }
+  .mood-btn.selected { border-color: var(--teal); background: var(--teal-dim); }
+
+  textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    color: var(--text);
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+
+  textarea:focus { outline: none; border-color: var(--teal); }
+
+  .btn-save {
+    background: linear-gradient(135deg, var(--teal), #00b894);
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 28px;
+    color: #0d1117;
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: all 0.2s;
+  }
+
+  .btn-save:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,212,170,0.3); }
+
+  /* CHART */
+  .chart-container {
+    height: 180px;
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  canvas { width: 100% !important; }
+
+  /* CHAT */
+  .chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 520px;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-track { background: transparent; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .msg {
+    display: flex;
+    gap: 10px;
+    animation: fadeUp 0.3s ease;
+    max-width: 85%;
+  }
+
+  .msg.user { flex-direction: row-reverse; align-self: flex-start; }
+  .msg.assistant { align-self: flex-end; }
+
+  .msg-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .msg.user .msg-avatar { background: linear-gradient(135deg, var(--blue), var(--purple)); }
+  .msg.assistant .msg-avatar { background: linear-gradient(135deg, var(--teal), #00b894); }
+
+  .msg-bubble {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .msg.user .msg-bubble {
+    background: rgba(56,139,253,0.15);
+    border-color: rgba(56,139,253,0.3);
+    border-radius: 14px 2px 14px 14px;
+  }
+
+  .msg.assistant .msg-bubble {
+    border-radius: 2px 14px 14px 14px;
+  }
+
+  .typing-indicator {
+    display: flex;
+    gap: 4px;
+    padding: 4px 0;
+  }
+
+  .typing-dot {
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: typingBounce 1.2s infinite;
+  }
+
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes typingBounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-6px); opacity: 1; }
+  }
+
+  .chat-input-row {
+    display: flex;
+    gap: 10px;
+  }
+
+  .chat-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: 'Heebo', sans-serif;
+    font-size: 14px;
+    resize: none;
+    min-height: 48px;
+    max-height: 120px;
+    transition: border-color 0.2s;
+    direction: rtl;
+  }
+
+  .chat-input:focus { outline: none; border-color: var(--teal); }
+
+  .btn-send {
+    background: linear-gradient(135deg, var(--teal), #00b894);
+    border: none;
+    border-radius: var(--radius);
+    padding: 12px 20px;
+    color: #0d1117;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-end;
+  }
+
+  .btn-send:hover { transform: scale(1.05); }
+  .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ALERTS */
+  .alert-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    transition: all 0.2s;
+  }
+
+  .alert-item:hover { border-color: var(--text-dim); }
+
+  .alert-item.high {
+    border-right: 3px solid var(--red);
+    background: rgba(248,81,73,0.05);
+  }
+
+  .alert-item.medium {
+    border-right: 3px solid var(--orange);
+    background: rgba(240,136,62,0.05);
+  }
+
+  .alert-item.low {
+    border-right: 3px solid var(--green);
+    background: rgba(63,185,80,0.05);
+  }
+
+  .alert-icon { font-size: 24px; }
+
+  .alert-body { flex: 1; }
+  .alert-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .alert-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+  .alert-time { font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+
+  .alert-actions { display: flex; gap: 8px; margin-top: 10px; }
+
+  .btn-sm {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    font-family: 'Heebo', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .btn-sm.primary { background: var(--teal); color: #0d1117; }
+  .btn-sm.ghost { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); }
+  .btn-sm:hover { opacity: 0.85; }
+
+  /* PATIENTS TABLE */
+  .patients-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .patients-table th {
+    text-align: right;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.5px;
+  }
+
+  .patients-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .patients-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .status-pill::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .status-pill.stable { background: rgba(63,185,80,0.15); color: var(--green); }
+  .status-pill.warning { background: rgba(240,136,62,0.15); color: var(--orange); }
+  .status-pill.critical { background: rgba(248,81,73,0.15); color: var(--red); }
+
+  .trend-up { color: var(--green); font-size: 18px; }
+  .trend-down { color: var(--red); font-size: 18px; }
+  .trend-flat { color: var(--text-muted); font-size: 18px; }
+
+  /* RECOMMENDATIONS */
+  .rec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .rec-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .rec-card:hover { border-color: var(--teal); transform: translateY(-2px); }
+
+  .rec-icon { font-size: 28px; margin-bottom: 10px; }
+  .rec-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .rec-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* AI ANALYSIS */
+  .analysis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .meter-row {
+    margin-bottom: 14px;
+  }
+
+  .meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .meter-label span:last-child { color: var(--text-muted); }
+
+  .meter-bar {
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 1s ease;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 20px;
+    width: fit-content;
+  }
+
+  .tab {
+    padding: 8px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    border: none;
+    background: none;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .tab.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+
+  /* LANGUAGE TOGGLE */
+  .lang-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 3px;
+    position: absolute;
+    top: 16px;
+    left: 20px;
+  }
+
+  .lang-btn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    border: none;
+    background: none;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .lang-btn.active { background: var(--surface); color: var(--text); }
+
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    position: relative;
+  }
+
+  .btn-logout {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+    color: var(--text-muted);
+    font-family: 'Heebo', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(100%); }
+    .main-content { margin-right: 0; padding: 20px; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .rec-grid { grid-template-columns: 1fr; }
+    .analysis-grid { grid-template-columns: 1fr; }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+  }
+
+  .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-state p { font-size: 14px; line-height: 1.6; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+  .info-row .info-label { color: var(--text-muted); }
+
+  .highlight { color: var(--teal); font-weight: 700; }
+
+  .quick-prompts {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .quick-prompt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Heebo', sans-serif;
+  }
+
+  .quick-prompt:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+  }
+
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+  }
+
+  .timeline {
+    position: relative;
+    padding-right: 24px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 8px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 4px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 2px solid var(--bg);
+  }
+
+  .timeline-date {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* COMPANION ENHANCEMENTS */
+  .alert-pulse {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(248,81,73,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(248,81,73,0); }
+  }
+  .mood-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+  }
+  .mood-bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface2);
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .mood-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.8s ease;
+  }
+  .companion-typing {
+    font-size: 12px;
+    color: var(--teal);
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* SYMPTOM TAGS */
+  .sym-tag {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: Heebo, sans-serif;
+    user-select: none;
+  }
+  .sym-tag:hover { border-color: var(--blue); color: var(--blue); }
+  .sym-tag.selected { background: rgba(56,139,253,0.15); border-color: var(--blue); color: var(--blue); font-weight: 600; }
+  .step-done { opacity: 1 !important; }
+
+  /* ===== MOBILE RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .sidebar { display: none !important; }
+    .main-content { margin-right: 0 !important; padding: 10px 10px 90px 10px !important; }
+    
+    /* Stats grid */
+    .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+    
+    /* Dashboard bottom - stack */
+    .dashboard-bottom { grid-template-columns: 1fr !important; gap: 12px !important; }
+    
+    /* FIX: Alert cards text wrapping */
+    .alert-item, .alert-card {
+      padding: 12px !important;
+    }
+    .alert-item *, .alert-card * {
+      word-break: break-word !important;
+      white-space: normal !important;
+      overflow-wrap: break-word !important;
+      font-size: 12px !important;
+      line-height: 1.6 !important;
+    }
+    .alert-item strong, .alert-card strong {
+      font-size: 13px !important;
+    }
+
+    /* Page header */
+    .page-header { padding: 12px 0 !important; }
+    .page-header h2 { font-size: 18px !important; }
+    .page-header p { font-size: 12px !important; }
+
+    /* Cards */
+    .card { padding: 14px !important; margin-bottom: 12px !important; }
+
+    /* 3-col grids → 1 col */
+    div[style*="grid-template-columns:1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+    div[style*="grid-template-columns: 1fr 1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* 2-col grids → 1 col */
+    div[style*="grid-template-columns:1fr 1fr"] {
+      grid-template-columns: 1fr !important;
+    }
+
+    /* Progress bar — scrollable */
+    #page-analysis > div:first-of-type {
+      overflow-x: auto !important;
+      flex-wrap: nowrap !important;
+    }
+
+    /* Topbar */
+    .topbar { padding: 8px 12px !important; }
+
+    /* Chat bubbles */
+    .msg-bubble { max-width: 88% !important; font-size: 13px !important; }
+
+    /* Buttons full width on mobile */
+    .page-header button { font-size: 12px !important; padding: 8px 12px !important; }
+
+    /* Setup */
+    .setup-container { padding: 20px 16px !important; }
+    .role-cards { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
+    .setup-logo h1 { font-size: 24px !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen">
+  <div class="setup-card">
+    <div class="setup-logo">
+      <div class="logo-icon" style="background:none;padding:0;width:56px;height:56px">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lg1" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#00d4aa"/>
+              <stop offset="100%" stop-color="#388bfd"/>
+            </linearGradient>
+            <linearGradient id="lg2" x1="56" y1="0" x2="0" y2="56" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#00d4aa" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#388bfd" stop-opacity="0.1"/>
+            </linearGradient>
+          </defs>
+          <!-- Outer circle -->
+          <circle cx="28" cy="28" r="27" fill="url(#lg2)" stroke="url(#lg1)" stroke-width="1.5"/>
+          <!-- Soul leaf shape -->
+          <path d="M28 10 C18 10 12 18 12 26 C12 34 18 42 28 46 C38 42 44 34 44 26 C44 18 38 10 28 10Z" fill="none" stroke="url(#lg1)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Inner heart pulse -->
+          <path d="M16 28 L21 28 L24 22 L28 34 L32 22 L35 28 L40 28" stroke="url(#lg1)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Center dot -->
+          <circle cx="28" cy="28" r="2.5" fill="url(#lg1)"/>
+          <!-- Small accent dots -->
+          <circle cx="28" cy="14" r="1.5" fill="#00d4aa" opacity="0.7"/>
+          <circle cx="28" cy="42" r="1.5" fill="#388bfd" opacity="0.7"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1>SoulCare</h1>
+        <p>בינה מלאכותית לבריאות הנפש</p>
+      </div>
+    </div>
+
+    <h2 class="setup-title">ברוכים הבאים</h2>
+    <p class="setup-subtitle">בחרו את התפקיד שלכם והזינו את הפרטים כדי להתחיל</p>
+
+    <div class="role-buttons">
+      <div class="role-btn active" id="role-psychiatrist" onclick="selectRole('psychiatrist')">
+        <div class="role-icon">👨‍⚕️</div>
+        <div class="role-label">פסיכיאטר</div>
+        <div class="role-desc">ניהול מטופלים וניתוח AI</div>
+      </div>
+      <div class="role-btn" id="role-patient" onclick="selectRole('patient')">
+        <div class="role-icon">🌱</div>
+        <div class="role-label">מטופל</div>
+        <div class="role-desc">מעקב מצב ורוח ותמיכה</div>
+      </div>
+    </div>
+
+    <div class="setup-field">
+      <label>שם מלא</label>
+      <input type="text" id="user-name" placeholder="הזינו את שמכם המלא" style="direction:rtl">
+    </div>
+
+    <div class="setup-field">
+      <label>מפתח API של Anthropic (Claude)</label>
+      <input type="password" id="api-key-input" placeholder="sk-ant-api03-..." dir="ltr">
+    </div>
+
+    <div class="api-warning">
+      ⚠️ המפתח נשמר רק בדפדפן שלכם ולא נשלח לשום שרת חיצוני. לקבלת מפתח: <strong>console.anthropic.com</strong>
+    </div>
+
+    <button class="btn-primary" onclick="startApp()">כניסה לאפליקציה →</button>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo" style="background:none;padding:0;overflow:visible">
+        <svg width="36" height="36" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="slg1" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#00d4aa"/>
+              <stop offset="100%" stop-color="#388bfd"/>
+            </linearGradient>
+          </defs>
+          <circle cx="28" cy="28" r="27" fill="#00d4aa18" stroke="url(#slg1)" stroke-width="1.5"/>
+          <path d="M28 10 C18 10 12 18 12 26 C12 34 18 42 28 46 C38 42 44 34 44 26 C44 18 38 10 28 10Z" fill="none" stroke="url(#slg1)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M16 28 L21 28 L24 22 L28 34 L32 22 L35 28 L40 28" stroke="url(#slg1)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="28" cy="28" r="2.5" fill="url(#slg1)"/>
+        </svg>
+      </div>
+      <span class="sidebar-brand">SoulCare</span>
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('he')">עב</button>
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
+
+    <div class="user-info">
+      <div class="user-name" id="sidebar-name">שם המשתמש</div>
+      <div class="user-role" id="sidebar-role">תפקיד</div>
+      <div class="role-badge" id="sidebar-badge">—</div>
+    </div>
+
+    <nav id="main-nav"></nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="logout()">🚪 יציאה מהאפליקציה</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <h2 id="dashboard-title">לוח בקרה</h2>
+        <p id="dashboard-subtitle">סקירה כללית של מצב המטופלים</p>
+      </div>
+
+      <div class="stats-row" id="stats-row"></div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">📈 מגמת מצב הרוח — 4 שבועות אחרונים</div>
+          <div class="chart-container">
+            <canvas id="moodChart"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">⚡ התראות אחרונות</div>
+          <div id="recent-alerts-widget"></div>
+        </div>
+      </div>
+
+      <div class="card" id="psychiatrist-summary" style="display:none">
+        <div class="card-title">👥 סיכום מטופלים פעילים</div>
+        <table class="patients-table">
+          <thead>
+            <tr>
+              <th>שם</th>
+              <th>מצב</th>
+              <th>מגמה</th>
+              <th>מצב רוח אחרון</th>
+              <th>התראות</th>
+            </tr>
+          </thead>
+          <tbody id="patients-summary-body"></tbody>
+        </table>
+      </div>
+
+      <div class="card" id="patient-recommendations-widget" style="display:none">
+        <div class="card-title">💡 המלצות אישיות להיום</div>
+        <div class="rec-grid" id="daily-recs-widget"></div>
+      </div>
+    </div>
+
+    <!-- MOOD JOURNAL PAGE -->
+    <div class="page" id="page-mood">
+      <div class="page-header">
+        <h2>יומן מצב רוח</h2>
+        <p>עקבו אחר הרגשות שלכם ושתפו עם הפסיכיאטר</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">😊 איך אתם מרגישים היום?</div>
+          <div class="mood-buttons" id="mood-buttons">
+            <div class="mood-btn" onclick="selectMood(5, this)"><span style="font-size:24px">😄</span><span>מצוין</span></div>
+            <div class="mood-btn" onclick="selectMood(4, this)"><span style="font-size:24px">🙂</span><span>טוב</span></div>
+            <div class="mood-btn" onclick="selectMood(3, this)"><span style="font-size:24px">😐</span><span>בסדר</span></div>
+            <div class="mood-btn" onclick="selectMood(2, this)"><span style="font-size:24px">😔</span><span>לא טוב</span></div>
+            <div class="mood-btn" onclick="selectMood(1, this)"><span style="font-size:24px">😢</span><span>קשה מאוד</span></div>
+          </div>
+
+          <label style="display:block; font-size:13px; color:var(--text-muted); margin-bottom:8px;">שתפו בכמה מילים (אופציונלי)</label>
+          <textarea id="mood-note" placeholder="איך עבר יומכם? מה עברתם היום?"></textarea>
+
+          <div style="display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap;">
+            <button class="btn-save" onclick="saveMoodEntry()">💾 שמירת הרשומה</button>
+            <button class="btn-save" style="background: linear-gradient(135deg,var(--blue),var(--purple))" onclick="analyzeWithAI()">🤖 ניתוח AI</button>
+          </div>
+
+          <div id="ai-analysis-result" style="margin-top:16px; display:none">
+            <div class="card-title" style="margin-bottom:12px">🔍 תובנות AI</div>
+            <div id="ai-analysis-text" style="font-size:14px; line-height:1.7; color:var(--text-muted)"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">📅 יומן 4 שבועות אחרונים</div>
+          <div class="mood-grid" id="mood-calendar"></div>
+          <div class="mood-legend">
+            <div class="mood-legend-item"><div class="mood-dot" style="background:#3fb950"></div>מצוין</div>
+            <div class="mood-legend-item"><div class="mood-dot" style="background:#388bfd"></div>טוב</div>
+            <div class="mood-legend-item"><div class="mood-dot" style="background:#f0883e"></div>בסדר</div>
+            <div class="mood-legend-item"><div class="mood-dot" style="background:#f85149"></div>קשה</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📊 ניתוח מגמות</div>
+        <div class="chart-container">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT PAGE -->
+    <div class="page" id="page-chat">
+      <div class="page-header">
+        <h2 id="chat-page-title">🤝 העוזר האישי שלי</h2>
+        <p id="chat-page-subtitle">כאן בשבילך תמיד — לתמיכה, עצה, והכוונה</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:20px;align-items:start">
+        <!-- MAIN CHAT -->
+        <div class="card" style="padding:16px">
+          <!-- Status bar -->
+          <div id="companion-status-bar" style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px">
+            <div style="position:relative">
+              <div style="width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(0,212,170,0.1);border:1.5px solid #00d4aa"><svg width="26" height="26" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="ca1" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00d4aa"/><stop offset="100%" stop-color="#388bfd"/></linearGradient></defs><path d="M28 8 C17 8 10 17 10 26 C10 35 17 44 28 48 C39 44 46 35 46 26 C46 17 39 8 28 8Z" fill="none" stroke="url(#ca1)" stroke-width="2.5"/><path d="M15 28 L20 28 L24 21 L28 35 L32 21 L36 28 L41 28" stroke="url(#ca1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="28" cy="28" r="3" fill="url(#ca1)"/></svg></div>
+              <div style="position:absolute;bottom:1px;right:1px;width:10px;height:10px;background:var(--green);border-radius:50%;border:2px solid var(--surface2)"></div>
+            </div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700" id="companion-name">העוזר האישי שלי</div>
+              <div style="font-size:12px;color:var(--teal)" id="companion-status-text">● מחובר ומקשיב</div>
+            </div>
+            <div id="mood-indicator-bar" style="display:flex;gap:6px;align-items:center;font-size:12px;color:var(--text-muted)">
+              <span>מצב רוח נוכחי:</span>
+              <span id="current-mood-display" style="font-size:18px">—</span>
+            </div>
+          </div>
+
+          <!-- Quick prompts -->
+          <div class="quick-prompts" id="quick-prompts-container" style="margin-bottom:12px"></div>
+
+          <!-- Chat messages -->
+          <div class="chat-container">
+            <div class="chat-messages" id="chat-messages" style="height:420px">
+              <div class="msg assistant">
+                <div class="msg-avatar">🧠</div>
+                <div class="msg-bubble" id="welcome-msg">שלום! אני כאן לסייע. איך אוכל לעזור לכם היום?</div>
+              </div>
+            </div>
+            <div style="margin-top:10px">
+              <!-- Mood quick check -->
+              <div id="mood-quick-bar" style="display:flex;gap:8px;align-items:center;margin-bottom:10px;padding:8px 12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+                <span style="font-size:12px;color:var(--text-muted);flex-shrink:0">איך אתם עכשיו?</span>
+                <span onclick="quickMoodCheck(5)" title="מצוין" style="cursor:pointer;font-size:20px;transition:transform 0.15s" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'">😄</span>
+                <span onclick="quickMoodCheck(4)" title="טוב" style="cursor:pointer;font-size:20px;transition:transform 0.15s" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'">🙂</span>
+                <span onclick="quickMoodCheck(3)" title="בסדר" style="cursor:pointer;font-size:20px;transition:transform 0.15s" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'">😐</span>
+                <span onclick="quickMoodCheck(2)" title="לא טוב" style="cursor:pointer;font-size:20px;transition:transform 0.15s" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'">😔</span>
+                <span onclick="quickMoodCheck(1)" title="קשה מאוד" style="cursor:pointer;font-size:20px;transition:transform 0.15s" onmouseover="this.style.transform='scale(1.3)'" onmouseout="this.style.transform='scale(1)'">😢</span>
+              </div>
+              <div class="chat-input-row">
+                <textarea class="chat-input" id="chat-input" placeholder="שתפו אותי — כל שאלה, כל רגש, כל מה שעל הלב..." rows="1" onkeydown="handleChatKey(event)"></textarea>
+                <button class="btn-send" id="send-btn" onclick="sendMessage()">➤</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SIDE PANEL -->
+        <div>
+          <!-- Mood tracker mini -->
+          <div class="card" style="margin-bottom:16px">
+            <div class="card-title" style="font-size:13px">📊 מד רגש — שיחה זו</div>
+            <div id="session-mood-chart" style="display:flex;flex-direction:column;gap:6px"></div>
+            <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+              <div style="font-size:12px;color:var(--text-muted);margin-bottom:6px">מגמה בשיחה זו:</div>
+              <div id="session-trend-text" style="font-size:13px;font-weight:600;color:var(--teal)">ממתין לנתונים...</div>
+            </div>
+          </div>
+
+          <!-- Alert to doctor panel -->
+          <div class="card" id="doctor-alert-panel">
+            <div class="card-title" style="font-size:13px">📡 קשר עם הפסיכיאטר</div>
+            <div id="doctor-alert-status" style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:12px">
+              העוזר עוקב אחר השיחה ויתריע לפסיכיאטר אוטומטית אם יזהה שינוי חריג.
+            </div>
+            <div id="alert-sent-notice" style="display:none;background:rgba(248,81,73,0.1);border:1px solid rgba(248,81,73,0.3);border-radius:8px;padding:10px;font-size:12px;color:var(--red);margin-bottom:10px">
+              🚨 <strong>נשלחה התראה לפסיכיאטר</strong><br>זוהה שינוי חריג — הפסיכיאטר יקבל עדכון.
+            </div>
+            <button onclick="manualAlertDoctor()" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--orange)';this.style.color='var(--orange)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">
+              📩 שלח עדכון ידני לפסיכיאטר
+            </button>
+          </div>
+
+          <!-- Tips -->
+          <div class="card" style="margin-top:16px" id="companion-tips-card">
+            <div class="card-title" style="font-size:13px">💡 טיפ להיום</div>
+            <div id="daily-tip" style="font-size:13px;color:var(--text-muted);line-height:1.6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTS PAGE -->
+    <div class="page" id="page-alerts">
+      <div class="page-header">
+        <h2>🔔 התראות</h2>
+        <p id="alerts-subtitle">מעקב אחר שינויים מגמתיים ואירועים חשובים</p>
+      </div>
+      <div id="alerts-list"></div>
+    </div>
+
+    <!-- PATIENTS PAGE (psychiatrist only) -->
+    <div class="page" id="page-patients">
+      <div class="page-header">
+        <h2>👥 מטופלים</h2>
+        <p>ניהול ומעקב אחר כל המטופלים</p>
+      </div>
+
+      <div class="card">
+        <table class="patients-table">
+          <thead>
+            <tr>
+              <th>שם המטופל</th>
+              <th>גיל</th>
+              <th>אבחנה</th>
+              <th>מצב</th>
+              <th>מגמה</th>
+              <th>מצב רוח ממוצע</th>
+              <th>פגישה הבאה</th>
+            </tr>
+          </thead>
+          <tbody id="patients-full-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- RECOMMENDATIONS PAGE -->
+    <div class="page" id="page-recommendations">
+      <div class="page-header">
+        <h2>💡 המלצות אישיות</h2>
+        <p>פעילויות ותחביבים שיסייעו בתהליך ההחלמה</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🤖 המלצות מותאמות אישית על ידי AI</div>
+        <p style="font-size:14px; color:var(--text-muted); margin-bottom:16px; line-height:1.6">
+          בהתבסס על הנתונים שנאספו, הבינה המלאכותית מזהה את התחומים שבהם תוכלו להתפתח ולהרגיש טוב יותר.
+        </p>
+        <div class="rec-grid" id="recs-grid"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📅 תכנית שבועית מוצעת</div>
+        <div id="weekly-plan"></div>
+      </div>
+    </div>
+
+    <!-- ANALYSIS PAGE (psychiatrist) -->
+    <div class="page" id="page-analysis">
+      <div class="page-header">
+        <h2>🔬 מנוע הניתוח הקליני</h2>
+        <p>4 שלבים ← דוח קליני מקיף עם המלצות תרופתיות מדויקות</p>
+      </div>
+
+      <!-- PROGRESS BAR -->
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 20px;overflow-x:auto">
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc1" style="width:32px;height:32px;border-radius:50%;background:var(--teal);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#0d1117">1</div>
+          <span style="font-size:12px;font-weight:700;color:var(--teal);white-space:nowrap">פרופיל מטופל</span>
+        </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl1" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--teal);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc2" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text-muted)">2</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap" id="sl2">שאלוני סטנדרט</span>
+        </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl2" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--blue);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc3" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text-muted)">3</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap" id="sl3">היסטוריה טיפולית</span>
+        </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl3" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--purple);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc4" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--text-muted)">4</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap" id="sl4">ציר זמן</span>
+        </div>
+        <div style="flex:1;min-width:20px;height:2px;background:var(--border);margin:0 6px;position:relative"><div id="pl4" style="position:absolute;top:0;left:0;height:100%;width:0%;background:var(--orange);transition:width 0.5s"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <div id="sc-done" style="width:32px;height:32px;border-radius:50%;background:var(--surface2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:16px">📋</div>
+          <span style="font-size:12px;font-weight:700;color:var(--text-muted);white-space:nowrap">דוח קליני</span>
+        </div>
+      </div>
+
+      <!-- STEP PANELS -->
+      <div id="analysis-steps">
+
+      <!-- STEP 1: Patient Profile -->
+      <div class="card" id="step-panel-1" style="border-top:3px solid var(--teal);margin-bottom:16px">
+        <div class="card-title">👤 שלב 1 — פרופיל המטופל</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">גיל</label>
+            <input type="number" id="p-age" placeholder="34" min="1" max="120" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מין</label>
+            <select id="p-gender" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>גבר</option><option>אישה</option><option>אחר</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מצב משפחתי</label>
+            <select id="p-marital" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>רווק/ה</option><option>נשוי/אה</option><option>גרוש/ה</option><option>אלמן/ה</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מצב תעסוקתי</label>
+            <select id="p-employment" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>עובד/ת</option><option>מובטל/ת</option><option>סטודנט/ית</option><option>פנסיונר/ית</option><option>אחר</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תלונה עיקרית</label>
+          <input type="text" id="p-complaint" placeholder="מה מביא את המטופל לטיפול?" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">רקע רפואי ומשפחתי</label>
+            <textarea id="p-background" placeholder="מחלות קודמות, אשפוזים, היסטוריה משפחתית..." style="width:100%;height:80px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">נסיבות חיים נוכחיות</label>
+            <textarea id="p-life" placeholder="לחצים, אירועים משמעותיים, תמיכה חברתית..." style="width:100%;height:80px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:8px">תסמינים עיקריים (בחרו הכל שרלוונטי)</label>
+          <div style="display:flex;flex-wrap:wrap;gap:7px" id="symptoms-tags">
+            <span class="sym-tag" onclick="toggleTag(this)">דיכאון</span>
+            <span class="sym-tag" onclick="toggleTag(this)">חרדה כללית</span>
+            <span class="sym-tag" onclick="toggleTag(this)">פאניקה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">נדודי שינה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">הזיות</span>
+            <span class="sym-tag" onclick="toggleTag(this)">פרנויה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">מאניה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">אובדנות</span>
+            <span class="sym-tag" onclick="toggleTag(this)">ריכוז ירוד</span>
+            <span class="sym-tag" onclick="toggleTag(this)">אימפולסיביות</span>
+            <span class="sym-tag" onclick="toggleTag(this)">פלשבקים</span>
+            <span class="sym-tag" onclick="toggleTag(this)">ניתוק</span>
+            <span class="sym-tag" onclick="toggleTag(this)">OCD</span>
+            <span class="sym-tag" onclick="toggleTag(this)">הימנעות חברתית</span>
+            <span class="sym-tag" onclick="toggleTag(this)">שינויי מצב רוח</span>
+            <span class="sym-tag" onclick="toggleTag(this)">עייפות כרונית</span>
+          </div>
+        </div>
+        <button onclick="completeStep(1)" style="width:100%;background:linear-gradient(135deg,var(--teal),#00b894);border:none;border-radius:10px;padding:12px;color:#0d1117;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך לשאלוני סטנדרט ←</button>
+      </div>
+
+      <!-- STEP 2: AI Deep Symptom Mapping -->
+      <div class="card" id="step-panel-2" style="border-top:3px solid var(--blue);margin-bottom:16px;opacity:0.5;pointer-events:none">
+        <div class="card-title">🧠 שלב 2 — מיפוי תסמינים מעמיק</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">ה-AI ינתח את העומק הקליני של כל תסמין שסומן בשלב הקודם</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">עוצמת התסמינים הכללית</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input type="range" id="p-severity" min="1" max="10" value="5" oninput="document.getElementById('sev-val').textContent=this.value" style="flex:1;accent-color:var(--blue)">
+              <span id="sev-val" style="font-size:18px;font-weight:800;color:var(--blue);min-width:24px">5</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim)"><span>קל מאוד</span><span>קיצוני</span></div>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תדירות התסמינים</label>
+            <select id="p-frequency" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>כמה פעמים בשנה</option>
+              <option>פעם בחודש</option>
+              <option>כמה פעמים בחודש</option>
+              <option>כמה פעמים בשבוע</option>
+              <option>כמעט כל יום</option>
+              <option>כל יום ולאורך כל היום</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תיאור מפורט של התסמינים במילים</label>
+          <textarea id="p-symptom-detail" placeholder="תאר את החוויה הסובייקטיבית — מה המטופל מרגיש, מתי, כמה זמן נמשך כל אפיזודה, מה מקדים אותה..." style="width:100%;height:90px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תסמינים גופניים נלווים</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px" id="somatic-tags">
+              <span class="sym-tag" onclick="toggleTag(this)">כאבי ראש</span>
+              <span class="sym-tag" onclick="toggleTag(this)">כאבי בטן</span>
+              <span class="sym-tag" onclick="toggleTag(this)">דפיקות לב</span>
+              <span class="sym-tag" onclick="toggleTag(this)">קוצר נשימה</span>
+              <span class="sym-tag" onclick="toggleTag(this)">רעד</span>
+              <span class="sym-tag" onclick="toggleTag(this)">הזעה</span>
+              <span class="sym-tag" onclick="toggleTag(this)">שינויי שינה</span>
+              <span class="sym-tag" onclick="toggleTag(this)">שינויי תיאבון</span>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">סיכון לעצמו/לאחרים</label>
+            <select id="p-risk" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>ללא סיכון</option>
+              <option>מחשבות פסיביות בלי כוונה</option>
+              <option>מחשבות אקטיביות ללא תכנון</option>
+              <option>תכנית קיימת — דחוף</option>
+              <option>ניסיון עצמי בעבר</option>
+            </select>
+          </div>
+        </div>
+        <button onclick="completeStep(2)" style="width:100%;background:linear-gradient(135deg,var(--blue),#1a6fd4);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך להיסטוריה טיפולית ←</button>
+      </div>
+
+            <!-- STEP 3: Treatment History -->
+      <div class="card" id="step-panel-3" style="border-top:3px solid var(--purple);margin-bottom:16px;opacity:0.5;pointer-events:none">
+        <div class="card-title">💊 שלב 3 — היסטוריה טיפולית</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תרופות שניסה בעבר</label>
+            <textarea id="p-prev-meds" placeholder="שם תרופה, מינון, משך, תגובה, תופעות לוואי..." style="width:100%;height:90px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תרופות נוכחיות ומינון</label>
+            <textarea id="p-current-meds" placeholder="תרופות שנוטל כיום..." style="width:100%;height:90px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">טיפולים פסיכותרפיים</label>
+            <input type="text" id="p-therapy" placeholder="CBT, DBT, EMDR, פסיכודינמי..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">אלרגיות ומגבלות רפואיות</label>
+            <input type="text" id="p-allergies" placeholder="אלרגיות לתרופות, מחלות לב, כליות..." style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תגובה כללית לטיפולים קודמים</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="לא ניסה טיפול"> לא ניסה</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="תגובה טובה"> תגובה טובה</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="תגובה חלקית"> תגובה חלקית</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer"><input type="radio" name="prev-response" value="עמיד לטיפול"> עמיד לטיפול</label>
+          </div>
+        </div>
+        <button onclick="completeStep(3)" style="width:100%;background:linear-gradient(135deg,var(--purple),#8e44ad);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך לציר זמן ←</button>
+      </div>
+
+      <!-- STEP 4: Timeline -->
+      <div class="card" id="step-panel-4" style="border-top:3px solid var(--orange);margin-bottom:16px;opacity:0.5;pointer-events:none">
+        <div class="card-title">⏱️ שלב 4 — ציר זמן ואירועים מפעילים</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">מתי התחילו התסמינים?</label>
+            <select id="p-onset" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>פחות מחודש</option>
+              <option>1-3 חודשים</option>
+              <option>3-6 חודשים</option>
+              <option>6-12 חודשים</option>
+              <option>1-3 שנים</option>
+              <option>יותר מ-3 שנים</option>
+              <option>מילדות/נעורים</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">אופי ההתפתחות</label>
+            <select id="p-progression" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>פתאומי</option>
+              <option>הדרגתי</option>
+              <option>מחזורי (גאות ושפל)</option>
+              <option>אפיזודי</option>
+              <option>כרוני ויציב</option>
+              <option>מחמיר עם הזמן</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">אירוע מפעיל ידוע</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <span class="sym-tag" onclick="toggleTag(this)">אובדן/אבל</span>
+            <span class="sym-tag" onclick="toggleTag(this)">טראומה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">גירושין/פרידה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">אובדן עבודה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">לידה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">מחלה גופנית</span>
+            <span class="sym-tag" onclick="toggleTag(this)">שינוי תרופה</span>
+            <span class="sym-tag" onclick="toggleTag(this)">ללא אירוע ידוע</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">השפעה על תפקוד יומיומי</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input type="range" id="p-functioning" min="1" max="10" value="5" oninput="document.getElementById('func-val').textContent=this.value" style="flex:1;accent-color:var(--orange)">
+              <span id="func-val" style="font-size:18px;font-weight:800;color:var(--orange);min-width:24px">5</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim)"><span>פגיעה קשה</span><span>תפקוד מלא</span></div>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">גורמים מחמירים/משפרים</label>
+            <input type="text" id="p-modifiers" placeholder="מה מחמיר? מה עוזר?" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;direction:rtl">
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">הערות קליניות נוספות</label>
+          <textarea id="p-extra-notes" placeholder="תצפיות מהפגישה, שפת גוף, דפוסים שנצפו, מידע ממשפחה..." style="width:100%;height:70px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+        </div>
+        <button onclick="completeStep(4)" style="width:100%;background:linear-gradient(135deg,var(--orange),#e67e22);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">✨ צור דוח קליני מלא</button>
+      </div>
+
+      </div><!-- /analysis-steps -->
+
+      <!-- FINAL REPORT -->
+      <div class="card" id="final-report-card" style="display:none;border:2px solid var(--teal)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+          <div>
+            <div style="font-size:20px;font-weight:800;color:var(--text)">📋 דוח קליני — SoulCare AI</div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:4px" id="report-timestamp"></div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button onclick="copyReport()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:12px;cursor:pointer">📋 העתק</button>
+            <button onclick="printReport()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:12px;cursor:pointer">🖨️ הדפס</button>
+            <button onclick="resetAnalysis()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text-muted);font-family:Heebo,sans-serif;font-size:12px;cursor:pointer">🔄 ניתוח חדש</button>
+          </div>
+        </div>
+
+        <!-- Scores summary bar -->
+        <div id="scores-bar" style="display:none;background:var(--surface2);border-radius:12px;padding:16px;margin-bottom:20px;display:flex;gap:20px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">עוצמת תסמינים</div>
+            <div id="rep-phq9" style="font-size:24px;font-weight:800;color:var(--blue)">-</div>
+            <div id="rep-phq9-lvl" style="font-size:11px;color:var(--text-muted)"></div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">סיכון</div>
+            <div id="rep-gad7" style="font-size:24px;font-weight:800;color:var(--purple)">-</div>
+            <div id="rep-gad7-lvl" style="font-size:11px;color:var(--text-muted)"></div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">תפקוד</div>
+            <div id="rep-func" style="font-size:24px;font-weight:800;color:var(--orange)">-</div>
+            <div style="font-size:11px;color:var(--text-muted)">מתוך 10</div>
+          </div>
+          <div style="width:1px;background:var(--border)"></div>
+          <div style="text-align:center">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">תסמינים</div>
+            <div id="rep-symptoms" style="font-size:24px;font-weight:800;color:var(--teal)">-</div>
+            <div style="font-size:11px;color:var(--text-muted)">שנבחרו</div>
+          </div>
+        </div>
+
+        <div id="final-report-text" style="font-size:14px;line-height:2;color:var(--text);white-space:pre-wrap;padding:20px;background:var(--surface2);border-radius:12px;border:1px solid var(--border);min-height:200px"></div>
+
+        <div style="margin-top:16px;background:rgba(248,81,73,0.08);border:1px solid rgba(248,81,73,0.2);border-radius:10px;padding:14px 18px;font-size:12px;color:var(--orange);line-height:1.7">
+          ⚕️ <strong>הבהרה משפטית וקלינית חשובה:</strong> כל המלצות הטיפול התרופתי בדוח זה הן הצעות בלבד המבוססות על AI ועל הנתונים שהוזנו. <strong>ההחלטה הסופית על כל טיפול תרופתי — כולל שם התרופה, המינון והמשך הטיפול — היא באחריות הרופא המטפל בלבד</strong>, בהתאם לבדיקה קלינית מלאה, שיקול דעת מקצועי וחוקי הרפואה.
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<div id="mobile-nav" style="display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:8px 4px 24px;z-index:9999;justify-content:space-around;align-items:center">
+  <div onclick="mobileNav('home')" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 10px;border-radius:10px;flex:1" id="mnav-home">
+    <span style="font-size:22px">🏠</span>
+    <span style="font-size:10px;color:var(--text-muted)">ראשי</span>
+  </div>
+  <div onclick="mobileNav('main')" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 10px;border-radius:10px;flex:1" id="mnav-main">
+    <span style="font-size:22px">📋</span>
+    <span style="font-size:10px;color:var(--text-muted)" id="mnav-main-label">מטופלים</span>
+  </div>
+  <div onclick="mobileNav('analysis')" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 10px;border-radius:10px;flex:1" id="mnav-analysis">
+    <span style="font-size:22px">🔬</span>
+    <span style="font-size:10px;color:var(--text-muted)">ניתוח AI</span>
+  </div>
+  <div onclick="mobileNav('alerts')" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 10px;border-radius:10px;flex:1" id="mnav-alerts">
+    <span style="font-size:22px">🔔</span>
+    <span style="font-size:10px;color:var(--text-muted)">התראות</span>
+  </div>
+  <div onclick="mobileNav('more')" style="display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:6px 10px;border-radius:10px;flex:1" id="mnav-more">
+    <span style="font-size:22px">⋯</span>
+    <span style="font-size:10px;color:var(--text-muted)">עוד</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let appState = {
+  role: 'psychiatrist',
+  userName: '',
+  apiKey: '',
+  lang: 'he',
+  selectedMood: null,
+  moodHistory: [],
+  chatHistory: [],
+  alerts: []
+};
+
+const TRANSLATIONS = {
+  he: {
+    dashboard: 'לוח בקרה',
+    mood: 'יומן מצב רוח',
+    chat: 'צ\'אט AI',
+    alerts: 'התראות',
+    patients: 'מטופלים',
+    recommendations: 'המלצות',
+    analysis: 'ניתוח קליני',
+    dashSubPsych: 'סקירה כללית של מצב המטופלים',
+    dashSubPatient: 'שלום! הנה הסיכום האישי שלך'
+  },
+  en: {
+    dashboard: 'Dashboard',
+    mood: 'Mood Journal',
+    chat: 'AI Chat',
+    alerts: 'Alerts',
+    patients: 'Patients',
+    recommendations: 'Recommendations',
+    analysis: 'Clinical Analysis',
+    dashSubPsych: 'Overview of all patient statuses',
+    dashSubPatient: 'Hello! Here\'s your personal summary'
+  }
+};
+
+// ============================================================
+// SETUP
+// ============================================================
+function selectRole(role) {
+  appState.role = role;
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('role-' + role).classList.add('active');
+}
+
+function startApp() {
+  const name = document.getElementById('user-name').value.trim();
+  const key = document.getElementById('api-key-input').value.trim();
+
+  if (!name) { alert('אנא הזינו שם'); return; }
+  if (!key || key.length < 20) { alert('אנא הזינו מפתח API (מתחיל ב- sk-ant-)'); return; }
+
+  appState.userName = name;
+  appState.apiKey = key;
+
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+
+  initApp();
+}
+
+function logout() {
+  appState = { role: 'psychiatrist', userName: '', apiKey: '', lang: 'he', selectedMood: null, moodHistory: [], chatHistory: [], alerts: [] };
+  document.getElementById('setup-screen').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function initApp() {
+  document.getElementById('sidebar-name').textContent = appState.userName;
+  document.getElementById('sidebar-role').textContent = appState.role === 'psychiatrist' ? 'פסיכיאטר' : 'מטופל';
+  const badge = document.getElementById('sidebar-badge');
+  badge.textContent = appState.role === 'psychiatrist' ? '👨‍⚕️ פסיכיאטר' : '🌱 מטופל';
+  badge.className = 'role-badge ' + appState.role;
+
+  buildNav();
+  generateMockData();
+  renderDashboard();
+  renderMoodCalendar();
+  renderAlerts();
+  renderRecommendations();
+  setChatWelcome();
+  if (appState.role === 'psychiatrist') {
+    renderPatientsTable();
+    renderAnalysis();
+  }
+  setTimeout(drawCharts, 200);
+}
+
+// ============================================================
+// NAV
+// ============================================================
+function buildNav() {
+  const nav = document.getElementById('main-nav');
+  const isDoc = appState.role === 'psychiatrist';
+
+  const items = isDoc ? [
+    // PSYCHIATRIST nav only
+    { icon: '🏠', label: 'לוח בקרה', page: 'dashboard', section: 'כללי' },
+    { icon: '👥', label: 'מטופלים', page: 'patients' },
+    { icon: '🔔', label: 'התראות', page: 'alerts', badge: true },
+    { icon: '🔬', label: 'ניתוח AI', page: 'analysis', section: 'כלים קליניים' },
+    { icon: '💡', label: 'המלצות', page: 'recommendations' }
+  ] : [
+    // PATIENT nav only
+    { icon: '🏠', label: 'ראשי', page: 'dashboard', section: 'אישי' },
+    { icon: '🤝', label: 'העוזר האישי', page: 'chat' },
+    { icon: '📓', label: 'יומן מצב רוח', page: 'mood' },
+    { icon: '🔔', label: 'התראות', page: 'alerts', badge: true },
+    { icon: '💡', label: 'המלצות', page: 'recommendations' }
+  ];
+
+  let html = '';
+  let lastSection = '';
+  items.forEach(item => {
+    if (item.section && item.section !== lastSection) {
+      html += `<div class="nav-section">${item.section}</div>`;
+      lastSection = item.section;
+    }
+    const alertBadge = item.badge ? `<span class="alert-badge" id="alert-count-badge">3</span>` : '';
+    html += `<div class="nav-item" id="nav-${item.page}" onclick="showPage('${item.page}')">
+      <span class="nav-icon">${item.icon}</span> ${item.label} ${alertBadge}
+    </div>`;
+  });
+
+  nav.innerHTML = html;
+  document.getElementById('nav-dashboard').classList.add('active');
+}
+
+function showPage(page) {
+  // Block psychiatrist pages from patients
+  const doctorOnly = ['patients', 'analysis'];
+  const patientOnly = ['mood', 'recommendations'];
+  if (appState.role !== 'psychiatrist' && doctorOnly.includes(page)) return;
+  if (appState.role === 'psychiatrist' && patientOnly.includes(page)) return;
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const navEl = document.getElementById('nav-' + page);
+  if (navEl) navEl.classList.add('active');
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
+}
+
+// ============================================================
+// MOCK DATA
+// ============================================================
+function generateMockData() {
+  const moods = [4,3,4,5,3,2,3,4,4,3,2,3,4,5,4,3,4,3,2,2,3,4,5,4,3,4,4,3];
+  moods.forEach((m, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (27 - i));
+    appState.moodHistory.push({ date: d.toISOString().split('T')[0], mood: m, note: '' });
+  });
+
+  appState.alerts = [
+    { level: 'high', icon: '🚨', title: 'ירידה חדה במצב הרוח', desc: appState.role === 'psychiatrist' ? 'מטופל מ. כהן: ירידה של 3 נקודות ב-48 שעות האחרונות. מומלץ לפנות בהקדם.' : 'זוהתה ירידה במצב רוחכם — מומלץ לפנות לפסיכיאטר.', time: 'לפני שעתיים' },
+    { level: 'medium', icon: '⚠️', title: 'דפוס שינה לא סדיר', desc: appState.role === 'psychiatrist' ? 'מטופל א. לוי: 5 ימים ברציפות עם דיווח על קשיי שינה.' : 'זוהה דפוס של קשיי שינה. נסו את ההמלצות שלנו.', time: 'לפני 6 שעות' },
+    { level: 'low', icon: '✅', title: 'מגמה חיובית', desc: appState.role === 'psychiatrist' ? 'מטופל ר. ישראלי: שיפור עקבי של 2 שבועות — מצוין!' : 'כל הכבוד! הנתונים מראים שיפור עקבי.', time: 'לפני יום' }
+  ];
+}
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+function renderDashboard() {
+  const isDoc = appState.role === 'psychiatrist';
+  document.getElementById('dashboard-title').textContent = 'לוח בקרה';
+  document.getElementById('dashboard-subtitle').textContent = isDoc ? 'סקירה כללית של מצב המטופלים' : 'שלום, ' + appState.userName + ' 👋';
+
+  const stats = isDoc ? [
+    { label: 'מטופלים פעילים', value: '12', sub: '3 חדשים החודש', color: 'var(--teal)' },
+    { label: 'התראות פתוחות', value: '3', sub: '1 קריטית', color: 'var(--red)' },
+    { label: 'ממוצע מצב רוח', value: '3.6', sub: 'מתוך 5 | +0.3↑', color: 'var(--green)' },
+    { label: 'פגישות השבוע', value: '8', sub: '2 מחר', color: 'var(--blue)' }
+  ] : [
+    { label: 'ימים של מעקב', value: '28', sub: 'רצף רשומות', color: 'var(--teal)' },
+    { label: 'ממוצע מצב רוח', value: '3.5', sub: 'שיפור של 12%↑', color: 'var(--green)' },
+    { label: 'ימים טובים', value: '18', sub: 'מתוך 28', color: 'var(--blue)' },
+    { label: 'התראות פעילות', value: '2', sub: '1 חדשה', color: 'var(--orange)' }
+  ];
+
+  document.getElementById('stats-row').innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <div class="stat-label">${s.label}</div>
+      <div class="stat-value" style="color:${s.color}">${s.value}</div>
+      <div class="stat-sub">${s.sub}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('recent-alerts-widget').innerHTML = appState.alerts.slice(0,3).map(a => `
+    <div class="alert-item ${a.level}" style="margin-bottom:8px">
+      <div class="alert-icon">${a.icon}</div>
+      <div class="alert-body">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-desc" style="font-size:12px">${a.desc.substring(0,80)}...</div>
+        <div class="alert-time">${a.time}</div>
+      </div>
+    </div>
+  `).join('');
+
+  if (isDoc) {
+    document.getElementById('psychiatrist-summary').style.display = '';
+    const tbody = document.getElementById('patients-summary-body');
+    const patients = [
+      { name: 'מ. כהן', status: 'critical', trend: 'down', mood: '2.1' },
+      { name: 'א. לוי', status: 'warning', trend: 'flat', mood: '3.0' },
+      { name: 'ר. ישראלי', status: 'stable', trend: 'up', mood: '4.2' },
+      { name: 'ד. בן-דוד', status: 'stable', trend: 'up', mood: '3.8' }
+    ];
+    tbody.innerHTML = patients.map(p => `
+      <tr>
+        <td>${p.name}</td>
+        <td><span class="status-pill ${p.status}">${p.status === 'stable' ? 'יציב' : p.status === 'warning' ? 'דורש תשומת לב' : 'קריטי'}</span></td>
+        <td><span class="trend-${p.trend}">${p.trend === 'up' ? '↑' : p.trend === 'down' ? '↓' : '→'}</span></td>
+        <td>${p.mood}/5</td>
+        <td>${p.status === 'critical' ? '🔴 1' : p.status === 'warning' ? '🟡 1' : '—'}</td>
+      </tr>
+    `).join('');
+  } else {
+    document.getElementById('patient-recommendations-widget').style.display = '';
+    document.getElementById('daily-recs-widget').innerHTML = `
+      <div class="rec-card"><div class="rec-icon">🧘</div><div class="rec-title">מדיטציה בוקר</div><div class="rec-desc">10 דקות נשימות מודעות לפני תחילת היום</div></div>
+      <div class="rec-card"><div class="rec-icon">🚶</div><div class="rec-title">הליכה קצרה</div><div class="rec-desc">20 דקות בחוץ — אור שמש ותנועה מועילים מאוד</div></div>
+    `;
+  }
+}
+
+// ============================================================
+// MOOD CALENDAR
+// ============================================================
+function renderMoodCalendar() {
+  const colors = { 5: '#3fb950', 4: '#388bfd', 3: '#f0883e', 2: '#f85149', 1: '#8b0000' };
+  const emojis = { 5: '😄', 4: '🙂', 3: '😐', 2: '😔', 1: '😢' };
+  const days = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ש'];
+
+  let html = days.map(d => `<div style="text-align:center;font-size:11px;color:var(--text-dim);padding:4px 0">${d}</div>`).join('');
+
+  appState.moodHistory.slice(-28).forEach(entry => {
+    const c = colors[entry.mood];
+    html += `<div class="mood-day filled" style="background:${c}20;border-color:${c}40" title="${entry.date}">
+      <span class="mood-emoji">${emojis[entry.mood]}</span>
+      <span style="font-size:9px;color:var(--text-dim)">${entry.date.slice(5)}</span>
+    </div>`;
+  });
+
+  const cal = document.getElementById('mood-calendar');
+  if (cal) cal.innerHTML = html;
+}
+
+function selectMood(val, el) {
+  appState.selectedMood = val;
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function saveMoodEntry() {
+  if (!appState.selectedMood) { alert('אנא בחרו מצב רוח'); return; }
+  const note = document.getElementById('mood-note').value;
+  const today = new Date().toISOString().split('T')[0];
+  const entry = { date: today, mood: appState.selectedMood, note, time: new Date().toISOString() };
+  appState.moodHistory.push(entry);
+  renderMoodCalendar();
+  drawCharts();
+
+  // 🤖 AI PATTERN DETECTION — run after every entry
+  detectMoodPatterns(entry);
+
+  document.getElementById('mood-note').value = '';
+  appState.selectedMood = null;
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+
+  // Confirm save
+  const saveBtn = document.querySelector('.btn-save');
+  if (saveBtn) { saveBtn.textContent = '✅ נשמר!'; setTimeout(() => saveBtn.textContent = '💾 שמירת הרשומה', 2000); }
+}
+
+async function detectMoodPatterns(newEntry) {
+  const history = appState.moodHistory;
+  if (history.length < 3) return; // Need minimum data
+
+  const recent = history.slice(-7); // Last 7 entries
+  const avgRecent = recent.reduce((s,e) => s + e.mood, 0) / recent.length;
+  const avgAll = history.reduce((s,e) => s + e.mood, 0) / history.length;
+  const lastMoods = recent.map(e => e.mood);
+  const trend = lastMoods[lastMoods.length-1] - lastMoods[0];
+
+  // Pattern flags
+  const flags = [];
+  if (newEntry.mood === 1) flags.push('crisis'); // Very low mood
+  if (avgRecent < 2.0) flags.push('sustained_low'); // Sustained low
+  if (trend <= -2 && history.length >= 5) flags.push('sharp_decline'); // Sharp drop
+  if (newEntry.mood === 5 && history.length >= 3) {
+    const prevAvg = history.slice(-4,-1).reduce((s,e) => s + e.mood, 0) / 3;
+    if (prevAvg < 2.5 && newEntry.mood === 5) flags.push('sudden_elevation'); // Mania risk
+  }
+  // Rapid oscillation — mania/depression cycling
+  if (recent.length >= 4) {
+    let swings = 0;
+    for (let i = 1; i < recent.length; i++) {
+      if (Math.abs(recent[i].mood - recent[i-1].mood) >= 3) swings++;
+    }
+    if (swings >= 2) flags.push('rapid_cycling');
+  }
+
+  if (flags.length === 0) return;
+
+  // Update current-mood-display
+  const moodEmojis = {5:'😄',4:'🙂',3:'😐',2:'😔',1:'😢'};
+  const el = document.getElementById('current-mood-display');
+  if (el) el.textContent = moodEmojis[newEntry.mood] || '—';
+
+  // Build AI alert prompt
+  const alertLevels = {
+    crisis: { level: 'critical', icon: '🚨', title: 'מצב רוח בשפל קיצוני' },
+    sustained_low: { level: 'high', icon: '⚠️', title: 'דיכאון מתמשך — ממוצע מתחת ל-2' },
+    sharp_decline: { level: 'high', icon: '📉', title: 'ירידה חדה במצב הרוח' },
+    sudden_elevation: { level: 'warning', icon: '📈', title: 'עלייה פתאומית חשודה — בדיקת מאניה' },
+    rapid_cycling: { level: 'high', icon: '🔄', title: 'תנודות קיצוניות — ייתכן cycling' }
+  };
+
+  const mainFlag = flags[0];
+  const alertInfo = alertLevels[mainFlag];
+
+  // Add to alerts list
+  const newAlert = {
+    level: alertInfo.level === 'critical' ? 'critical' : 'warning',
+    icon: alertInfo.icon,
+    title: alertInfo.title,
+    desc: 'זוהה אוטומטית ע"י AI | מצב רוח ' + newEntry.mood + '/5 | ממוצע 7 ימים: ' + avgRecent.toFixed(1),
+    time: 'עכשיו',
+    patient: appState.userName || 'המטופל',
+    aiDetected: true
+  };
+  appState.alerts.unshift(newAlert);
+  updateAlertBadge();
+
+  // Show in-app notification
+  showAIAlert(newAlert, flags);
+
+  // If critical, also generate AI analysis
+  if (flags.includes('crisis') || flags.includes('sustained_low') || flags.includes('rapid_cycling')) {
+    await generateAutoAlert(flags, newEntry, avgRecent, avgAll);
+  }
+}
+
+async function generateAutoAlert(flags, entry, avgRecent, avgAll) {
+  const flagDesc = {
+    crisis: 'מצב רוח בשפל קיצוני (1/5)',
+    sustained_low: 'ממוצע מצב רוח מתחת ל-2.0 בשבוע האחרון',
+    sharp_decline: 'ירידה חדה של 2+ נקודות',
+    sudden_elevation: 'עלייה פתאומית מדיכאון לאופוריה — חשד למאניה',
+    rapid_cycling: 'תנודות קיצוניות של 3+ נקודות בין ימים סמוכים'
+  };
+
+  const prompt = 'מטופל דיווח: מצב רוח ' + entry.mood + '/5. ממוצע 7 ימים: ' + avgRecent.toFixed(1) + '\n' +
+    'דפוסים שזוהו: ' + flags.map(f => flagDesc[f]).join(' | ') + '\n' +
+    'הערת המטופל: ' + (entry.note || 'לא נכתבה') + '\n\n' +
+    'כתוב התראה קלינית קצרה לפסיכיאטר (3-4 משפטים): מה זוהה, מה הסיכון, מה מומלץ לבדוק בפגישה הבאה.';
+
+  try {
+    const aiText = await callClaude(prompt, 'אתה מערכת ניטור קלינית. כתוב התראות קצרות, מדויקות וקליניות בעברית.');
+    // Store AI-generated clinical note in alert
+    appState.alerts[0].clinicalNote = aiText;
+  } catch(e) { console.log('Alert AI error:', e); }
+}
+
+function showAIAlert(alert, flags) {
+  const existing = document.getElementById('ai-alert-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'ai-alert-toast';
+  const isRTL = document.documentElement.dir === 'rtl' || true;
+  toast.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:99999;' +
+    'background:' + (alert.level === 'critical' ? 'rgba(248,81,73,0.95)' : 'rgba(240,136,62,0.95)') + ';' +
+    'color:white;padding:16px 24px;border-radius:14px;font-family:Heebo,sans-serif;direction:rtl;' +
+    'max-width:380px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.4);text-align:right';
+  toast.innerHTML = '<div style="font-size:16px;font-weight:800;margin-bottom:4px">' + alert.icon + ' ' + alert.title + '</div>' +
+    '<div style="font-size:13px;opacity:0.9">' + alert.desc + '</div>' +
+    '<div style="font-size:11px;margin-top:8px;opacity:0.7">🤖 זוהה אוטומטית ע"י SoulCare AI</div>';
+  document.body.appendChild(toast);
+  setTimeout(() => { if (toast.parentNode) toast.remove(); }, 6000);
+}
+
+function updateAlertBadge() {
+  const badge = document.getElementById('alert-count-badge');
+  if (badge) {
+    const count = appState.alerts.filter(a => a.level === 'critical' || a.level === 'warning').length;
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline' : 'none';
+  }
+}
+
+async function analyzeWithAI() {
+  const mood = appState.selectedMood;
+  const note = document.getElementById('mood-note').value.trim();
+  if (!mood && !note) { alert('אנא בחרו מצב רוח או כתבו הערה'); return; }
+
+  const resultDiv = document.getElementById('ai-analysis-result');
+  const textDiv = document.getElementById('ai-analysis-text');
+  resultDiv.style.display = 'block';
+  textDiv.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+
+  const moodLabels = { 5: 'מצוין (5/5)', 4: 'טוב (4/5)', 3: 'בסדר (3/5)', 2: 'לא טוב (2/5)', 1: 'קשה מאוד (1/5)' };
+  const moodText = mood ? moodLabels[mood] : 'לא צוין';
+  const noteText = note || 'לא נכתבה הערה';
+
+  const systemPrompt = 'אתה עוזר תמיכה רגשית מקצועי ואמפתי. אתה עוזר למטופלים בתהליך בריאות נפשית. ענה תמיד בעברית, בצורה חמה, קצרה וברורה.';
+  const userPrompt = 'מצב רוח: ' + moodText + '\nהערה: ' + noteText + '\n\nספק:\n1. 💙 תגובה אמפתית (2-3 משפטים)\n2. 🔍 תובנה אחת קצרה\n3. ✅ המלצה פרקטית אחת להיום';
+
+  try {
+    const text = await callClaude(userPrompt, systemPrompt);
+    textDiv.innerHTML = text.replace(/\n/g, '<br>');
+  } catch (e) {
+    textDiv.innerHTML = '⚠️ ' + (e.message || 'שגיאה בחיבור ל-AI');
+  }
+}
+
+// ============================================================
+// CHARTS
+// ============================================================
+let moodChartInstance, trendChartInstance;
+
+function drawCharts() {
+  const last14 = appState.moodHistory.slice(-14);
+  const labels = last14.map(e => e.date.slice(5));
+  const data = last14.map(e => e.mood);
+
+  const chartOpts = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: '#30363d' }, ticks: { color: '#7d8590', font: { size: 11 } } },
+      y: { min: 1, max: 5, grid: { color: '#30363d' }, ticks: { color: '#7d8590', font: { size: 11 }, stepSize: 1 } }
+    }
+  };
+
+  const gradient1 = (ctx) => {
+    const g = ctx.createLinearGradient(0, 0, 0, 180);
+    g.addColorStop(0, 'rgba(0,212,170,0.3)');
+    g.addColorStop(1, 'rgba(0,212,170,0.02)');
+    return g;
+  };
+
+  const c1 = document.getElementById('moodChart');
+  if (c1) {
+    if (moodChartInstance) moodChartInstance.destroy();
+    moodChartInstance = new Chart(c1, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data,
+          borderColor: '#00d4aa',
+          backgroundColor: (ctx) => gradient1(ctx.chart.ctx),
+          borderWidth: 2,
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#00d4aa',
+          pointRadius: 4
+        }]
+      },
+      options: chartOpts
+    });
+  }
+
+  const c2 = document.getElementById('trendChart');
+  if (c2) {
+    if (trendChartInstance) trendChartInstance.destroy();
+    trendChartInstance = new Chart(c2, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          label: 'מצב רוח',
+          data,
+          borderColor: '#388bfd',
+          backgroundColor: 'rgba(56,139,253,0.1)',
+          borderWidth: 2,
+          tension: 0.4,
+          fill: true,
+          pointBackgroundColor: '#388bfd'
+        }]
+      },
+      options: chartOpts
+    });
+  }
+}
+
+// ============================================================
+// CHAT
+// ============================================================
+function setChatWelcome() {
+  const isDoc = appState.role === 'psychiatrist';
+  const nameEl = document.getElementById('welcome-msg');
+  if (nameEl) nameEl.textContent = isDoc
+    ? 'שלום ד"ר ' + appState.userName + '! אני כאן לסייע בניתוח קליני, שאלות על מטופלים, ומגמות טיפוליות. כיצד אוכל לעזור?'
+    : 'שלום ' + appState.userName + ' 💙 אני העוזר האישי שלך. אני כאן בשבילך בכל עת — לשמוע, לעזור, לייעץ ולהכווין. מה עובר עליך היום?';
+
+  // Update page title for patient
+  if (!isDoc) {
+    const titleEl = document.getElementById('chat-page-title');
+    if (titleEl) titleEl.textContent = '🤝 העוזר האישי שלי';
+  }
+
+  const prompts = document.getElementById('quick-prompts-container');
+  if (!prompts) return;
+  const qp = isDoc ? [
+    'מה המגמה הכללית של המטופלים?',
+    'אילו מטופלים זקוקים לתשומת לב?',
+    'ניתוח השבוע האחרון',
+    'המלצות כיוונים טיפוליים'
+  ] : [
+    'אני מרגיש/ה חרדה',
+    'קשה לי לישון',
+    'תן לי עצה להיום',
+    'אני לא מרגיש/ה טוב',
+    'איך אפשר להרגיש טוב יותר?'
+  ];
+  prompts.innerHTML = qp.map(p => '<span class="quick-prompt" onclick="setPrompt(\'' + p.replace(/'/g, "&#39;") + '\')">' + p + '</span>').join('');
+
+  // Set daily tip
+  const tips = [
+    'נשמו עמוק 4 שניות, החזיקו 4, נשפו 6. חזרו 3 פעמים — זה מרגיע את מערכת העצבים ✨',
+    'שתו כוס מים. פעולה קטנה, השפעה גדולה על הגוף והמוח 💧',
+    'צאו ל-5 דקות אוויר רענן. הטבע הוא תרופה טבעית 🌿',
+    'שלחו הודעה לאדם אחד שאתם אוהבים. חיבור חברתי מחזק 💛',
+    'כתבו 3 דברים קטנים שהצלחתם היום. הצלחות קטנות חשובות 📝'
+  ];
+  const tipEl = document.getElementById('daily-tip');
+  if (tipEl) tipEl.textContent = tips[Math.floor(Math.random() * tips.length)];
+
+  // Init session mood chart
+  renderSessionMoodChart();
+}
+
+function setPrompt(text) {
+  document.getElementById('chat-input').value = text;
+  document.getElementById('chat-input').focus();
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+// Session mood tracking
+const sessionMoods = [];
+
+function quickMoodCheck(val) {
+  const emojis = { 1: '😢', 2: '😔', 3: '😐', 4: '🙂', 5: '😄' };
+  const el = document.getElementById('current-mood-display');
+  if (el) el.textContent = emojis[val];
+  sessionMoods.push({ val, time: new Date().toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' }) });
+  renderSessionMoodChart();
+  checkForAnomalies();
+  // Auto-send mood update to chat
+  const moodTexts = { 1: 'אני מרגיש/ה קשה מאוד כרגע 😢', 2: 'אני לא מרגיש/ה טוב 😔', 3: 'אני בסדר, לא טוב לא רע 😐', 4: 'אני מרגיש/ה טוב 🙂', 5: 'אני מרגיש/ה מצוין! 😄' };
+  document.getElementById('chat-input').value = moodTexts[val];
+  sendMessage();
+}
+
+function renderSessionMoodChart() {
+  const container = document.getElementById('session-mood-chart');
+  if (!container) return;
+  if (sessionMoods.length === 0) {
+    container.innerHTML = '<div style="font-size:12px;color:var(--text-dim);text-align:center;padding:8px">לחצו על אמוג\'י למעקב מצב הרוח</div>';
+    return;
+  }
+  const colors = { 1: '#f85149', 2: '#f0883e', 3: '#f0cc4a', 4: '#388bfd', 5: '#3fb950' };
+  const emojis = { 1: '😢', 2: '😔', 3: '😐', 4: '🙂', 5: '😄' };
+  container.innerHTML = sessionMoods.slice(-5).map(m => '<div class="mood-bar-item"><span style="font-size:14px">' + emojis[m.val] + '</span><div class="mood-bar-track"><div class="mood-bar-fill" style="width:' + (m.val * 20) + '%;background:' + colors[m.val] + '"></div></div><span style="color:var(--text-dim);font-size:11px">' + m.time + '</span></div>').join('');
+
+  // Trend
+  const trendEl = document.getElementById('session-trend-text');
+  if (trendEl && sessionMoods.length >= 2) {
+    const last = sessionMoods[sessionMoods.length - 1].val;
+    const prev = sessionMoods[sessionMoods.length - 2].val;
+    const diff = last - prev;
+    if (diff > 0) trendEl.innerHTML = '<span style="color:var(--green)">↑ מגמה עולה — כל הכבוד!</span>';
+    else if (diff < 0) trendEl.innerHTML = '<span style="color:var(--orange)">↓ ירידה קלה — שימו לב</span>';
+    else trendEl.innerHTML = '<span style="color:var(--text-muted)">→ יציב</span>';
+  }
+}
+
+function checkForAnomalies() {
+  if (sessionMoods.length < 2) return;
+  const last = sessionMoods[sessionMoods.length - 1].val;
+  const prev = sessionMoods[sessionMoods.length - 2].val;
+  const drop = prev - last;
+
+  // Alert if drop >= 2 or mood critically low
+  if (drop >= 2 || last <= 1) {
+    triggerDoctorAlert('ירידה חדה במצב הרוח', 'המטופל ' + appState.userName + ' דיווח על ירידה ממצב ' + prev + '/5 ל-' + last + '/5 בתוך זמן קצר.');
+  }
+}
+
+function triggerDoctorAlert(title, details) {
+  const panel = document.getElementById('alert-sent-notice');
+  if (panel) {
+    panel.style.display = 'block';
+    panel.innerHTML = '🚨 <strong>נשלחה התראה לפסיכיאטר</strong><br><span style="font-size:11px">' + title + ' — ' + new Date().toLocaleTimeString('he-IL') + '</span>';
+  }
+  // Add to app alerts
+  appState.alerts.unshift({ level: 'high', icon: '🚨', title: title, desc: details, time: 'עכשיו' });
+  const badge = document.getElementById('alert-count-badge');
+  if (badge) badge.textContent = appState.alerts.filter(a => a.level === 'high').length;
+}
+
+function manualAlertDoctor() {
+  const lastMoods = sessionMoods.slice(-3).map(m => m.val).join(', ');
+  const summary = 'המטופל ' + appState.userName + ' שלח עדכון ידני. מצבי רוח אחרונים בשיחה: ' + (lastMoods || 'לא צוינו') + '.';
+  triggerDoctorAlert('עדכון ידני מהמטופל', summary);
+  alert('✅ העדכון נשלח לפסיכיאטר שלך בהצלחה!');
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  appendMessage('user', text);
+
+  const sendBtn = document.getElementById('send-btn');
+  sendBtn.disabled = true;
+  const typingId = appendTyping();
+
+  const isDoc = appState.role === 'psychiatrist';
+
+  // Build rich system prompt for patient companion
+  const sessionMoodSummary = sessionMoods.length > 0
+    ? 'מצבי רוח שדווחו בשיחה זו: ' + sessionMoods.map(m => m.val + '/5').join(' → ')
+    : '';
+
+  const moodHistory = appState.moodHistory || [];
+  const recentMoods = moodHistory.slice(-7).map(function(e){return e.mood;});
+  const avgMood = recentMoods.length ? (recentMoods.reduce(function(a,b){return a+b;},0)/recentMoods.length).toFixed(1) : 'אין נתונים';
+  const aiAlerts = (appState.alerts || []).filter(function(a){return a.aiDetected;}).length;
+
+  var sysP = 'אתה העוזר האישי SoulCare — חם, אמפתי ואינטליגנט. אתה מתמחה בתמיכה נפשית.\n';
+  sysP += 'שם המשתמש: ' + appState.userName + '\n';
+  sysP += 'ממוצע מצב רוח (7 ימים): ' + avgMood + '/5\n';
+  sysP += 'מספר רשומות: ' + moodHistory.length + '\n';
+  if (sessionMoodSummary) sysP += sessionMoodSummary + '\n';
+  if (aiAlerts > 0) sysP += 'שים לב: זוהו ' + aiAlerts + ' דפוסים חריגים לאחרונה.\n';
+  sysP += '\nתפקידך:\n1. להקשיב ולהיות נוכח רגשית\n2. לזהות שינויי מצב רוח בתוך השיחה ולהגיב בהתאם\n3. לאתגר בעדינות דפוסי חשיבה שליליים\n4. לשאול שאלות מעמיקות שיעזרו למשתמש להבין את עצמו\n5. כאשר מזהה סימני מצוקה — לאחד בין תמיכה לעידוד פנייה לפסיכיאטר\n6. לא לתת המלצות רפואיות או תרופתיות\nענה בעברית, בחמימות, בקיצור (לא יותר מ-5 משפטים בדרך כלל). היה אנושי, לא רובוטי.';
+
+  var sysD = 'אתה עוזר פסיכיאטרי קליני מקצועי ומנוסה.\nתפקידך:\n1. לסייע בניתוח מקרים קליניים מורכבים\n2. להציע אבחנות מבדלות מבוססות evidence\n3. לספק המלצות תרופתיות ופסיכותרפיות\n4. לזהות דפוסים חריגים בנתוני מטופלים\n5. לספק מידע על פרוטוקולי טיפול עדכניים\nענה בעברית, בצורה קלינית ומדויקת. ציין שהחלטות קליניות הן באחריות הרופא בלבד.';
+
+  const systemPrompt = isDoc ? sysD : sysP;
+
+  appState.chatHistory.push({ role: 'user', content: text });
+
+  try {
+    const reply = await callClaude(text, systemPrompt, appState.chatHistory.slice(-12));
+    removeTyping(typingId);
+    appendMessage('assistant', reply);
+    appState.chatHistory.push({ role: 'assistant', content: reply });
+
+    // AI anomaly detection — scan reply for distress signals
+    if (!isDoc) {
+      const distressKeywords = ['מצוקה', 'אבד עצות', 'לא יכול יותר', 'חסר תקווה', 'פוגע', 'להיפגע', 'לא שווה'];
+      const hasDistress = distressKeywords.some(kw => text.includes(kw) || reply.includes(kw));
+      if (hasDistress) {
+        triggerDoctorAlert('זוהתה מצוקה בשיחה', 'AI זיהה ביטויי מצוקה בשיחת המטופל ' + appState.userName);
+      }
+    }
+  } catch (e) {
+    removeTyping(typingId);
+    appendMessage('assistant', '⚠️ ' + (e.message || 'שגיאה לא ידועה — בדקו את מפתח ה-API'));
+  }
+
+  sendBtn.disabled = false;
+}
+
+
+function appendMessage(role, text) {
+  const container = document.getElementById('chat-messages');
+  const userAvatar = '<span style="font-size:18px">👤</span>';
+  const aiAvatar = '<svg width="22" height="22" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="msgLg" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%25" stop-color="#00d4aa"/><stop offset="100%25" stop-color="#388bfd"/></linearGradient></defs><path d="M28 8 C17 8 10 17 10 26 C10 35 17 44 28 48 C39 44 46 35 46 26 C46 17 39 8 28 8Z" fill="none" stroke="url(%23msgLg)" stroke-width="3"/><path d="M15 28 L20 28 L24 21 L28 35 L32 21 L36 28 L41 28" stroke="url(%23msgLg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="28" cy="28" r="3" fill="url(%23msgLg)"/></svg>';
+  const avatar = role === 'user' ? userAvatar : aiAvatar;
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  div.innerHTML = '<div class="msg-avatar" style="display:flex;align-items:center;justify-content:center">' + avatar + '</div><div class="msg-bubble">' + text.replace(/\n/g,'<br>') + '</div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function appendTyping() {
+  const container = document.getElementById('chat-messages');
+  const id = 'typing-' + Date.now();
+  const div = document.createElement('div');
+  div.className = 'msg assistant';
+  div.id = id;
+  div.innerHTML = '<div class="msg-avatar" style="background:rgba(0,212,170,0.1);border:1.5px solid #00d4aa"><svg width="20" height="20" viewBox="0 0 56 56" fill="none"><defs><linearGradient id="ta1" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#00d4aa"/><stop offset="100%" stop-color="#388bfd"/></linearGradient></defs><path d="M28 8 C17 8 10 17 10 26 C10 35 17 44 28 48 C39 44 46 35 46 26 C46 17 39 8 28 8Z" fill="none" stroke="url(#ta1)" stroke-width="3"/><path d="M15 28 L20 28 L24 21 L28 35 L32 21 L36 28 L41 28" stroke="url(#ta1)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return id;
+}
+
+function removeTyping(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+// ============================================================
+// ALERTS
+// ============================================================
+function renderAlerts() {
+  const list = document.getElementById('alerts-list');
+  if (!list) return;
+  list.innerHTML = appState.alerts.map(a => `
+    <div class="alert-item ${a.level}">
+      <div class="alert-icon">${a.icon}</div>
+      <div class="alert-body">
+        <div class="alert-title">${a.title}</div>
+        <div class="alert-desc">${a.desc}</div>
+        <div class="alert-time">⏱ ${a.time}</div>
+        <div class="alert-actions">
+          <button class="btn-sm primary">✓ סמן כטופל</button>
+          <button class="btn-sm ghost">📋 פרטים</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+// RECOMMENDATIONS
+// ============================================================
+function renderRecommendations() {
+  const grid = document.getElementById('recs-grid');
+  if (!grid) return;
+
+  const recs = [
+    { icon: '🎨', title: 'ציור ואמנות', desc: 'ביטוי יצירתי מסייע לעיבוד רגשות ומפחית חרדה. אפילו 15 דקות ביום יעשו הבדל.' },
+    { icon: '🎵', title: 'מוזיקה טיפולית', desc: 'הקשיבו למוזיקה שאתם אוהבים, או נסו לנגן. מוזיקה משפרת מצב רוח באופן מוכח.' },
+    { icon: '🌱', title: 'גינון וטבע', desc: 'גינון ביתי קטן מסייע ביצירת שגרה, אחריות ותחושת הצלחה יומיומית.' },
+    { icon: '📚', title: 'קריאה', desc: 'קראו ספרים קצרים שמרגשים אתכם — לא חובה ספרי עזרה עצמית, כל ז\'אנר שאוהבים.' },
+    { icon: '🧘', title: 'יוגה ומיינדפולנס', desc: '10 דקות ביום של נשימות מודעות מפחיתות סטרס ומשפרות ריכוז.' },
+    { icon: '🚶', title: 'הליכה יומית', desc: 'הליכה של 20 דקות בחוץ — אור שמש, תנועה ואוויר רענן — כמו תרופה טבעית.' }
+  ];
+
+  grid.innerHTML = recs.map(r => `
+    <div class="rec-card">
+      <div class="rec-icon">${r.icon}</div>
+      <div class="rec-title">${r.title}</div>
+      <div class="rec-desc">${r.desc}</div>
+    </div>
+  `).join('');
+
+  const plan = document.getElementById('weekly-plan');
+  if (plan) {
+    const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+    const activities = ['מדיטציה + הליכה', 'ציור חופשי', 'הליכה + מוזיקה', 'יוגה', 'גינון', 'פעילות חברתית', 'מנוחה + קריאה'];
+    plan.innerHTML = `<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px">` +
+      days.map((d, i) => `
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">${d}</div>
+          <div style="font-size:13px;font-weight:600;color:var(--teal)">${activities[i]}</div>
+        </div>
+      `).join('') + '</div>';
+  }
+}
+
+// ============================================================
+// PATIENTS TABLE
+// ============================================================
+function renderPatientsTable() {
+  const tbody = document.getElementById('patients-full-body');
+  if (!tbody) return;
+
+  const patients = [
+    { name: 'מ. כהן', age: 34, diag: 'דיכאון מז\'ורי', status: 'critical', trend: 'down', avg: '2.1', next: 'מחר 10:00' },
+    { name: 'א. לוי', age: 28, diag: 'הפרעת חרדה', status: 'warning', trend: 'flat', avg: '3.0', next: 'ב-3 ימים' },
+    { name: 'ר. ישראלי', age: 45, diag: 'הפרעה ביפולרית', status: 'stable', trend: 'up', avg: '4.2', next: 'בעוד שבוע' },
+    { name: 'ד. בן-דוד', age: 22, diag: 'חרדה חברתית', status: 'stable', trend: 'up', avg: '3.8', next: 'בעוד שבועיים' },
+    { name: 'נ. שפירא', age: 51, diag: 'PTSD', status: 'warning', trend: 'flat', avg: '2.8', next: 'מחרתיים' }
+  ];
+
+  tbody.innerHTML = patients.map(p => `
+    <tr>
+      <td><strong>${p.name}</strong></td>
+      <td>${p.age}</td>
+      <td style="color:var(--text-muted)">${p.diag}</td>
+      <td><span class="status-pill ${p.status}">${p.status === 'stable' ? 'יציב' : p.status === 'warning' ? 'מעקב' : 'קריטי'}</span></td>
+      <td><span class="trend-${p.trend}">${p.trend === 'up' ? '↑ עלייה' : p.trend === 'down' ? '↓ ירידה' : '→ יציב'}</span></td>
+      <td>${p.avg}/5</td>
+      <td style="color:var(--text-muted);font-size:13px">${p.next}</td>
+    </tr>
+  `).join('');
+}
+
+// ============================================================
+// CLINICAL ENGINE v2 — 4 STEP ANALYSIS
+// ============================================================
+
+var clinicalData = { step1: null, step2: null, step3: null, step4: null };
+
+var PHQ9_QUESTIONS = [
+  'ענין או הנאה קטנה בעשיית דברים',
+  'תחושת עצב, דיכאון או ייאוש',
+  'קושי להירדם או שינה מרובה',
+  'תחושת עייפות או מיעוט אנרגיה',
+  'תיאבון ירוד או אכילת יתר',
+  'תחושת רע עם עצמך — כישלון או אכזבה מהמשפחה',
+  'קושי להתרכז בדברים',
+  'תנועה או דיבור איטי/עצבני מהרגיל',
+  'מחשבות שעדיף לא להיות חי, או לפגוע בעצמך'
+];
+
+var GAD7_QUESTIONS = [
+  'תחושת עצבנות, חרדה או מתח',
+  'חוסר יכולת לעצור או לשלוט בדאגות',
+  'דאגה מוגזמת לגבי דברים שונים',
+  'קושי להירגע',
+  'חוסר מנוחה שקשה לשבת בשקט',
+  'קלות רגזנות או עצבנות',
+  'תחושת פחד שמשהו רע עלול לקרות'
+];
+
+
+function renderAnalysis() {}
+
+function toggleTag(el) {
+  el.classList.toggle('selected');
+}
+
+function getSelectedTags(containerId) {
+  var container = containerId ? document.getElementById(containerId) : document.getElementById('symptoms-tags');
+  if (!container) return '';
+  var tags = container.querySelectorAll('.sym-tag.selected');
+  var result = [];
+  tags.forEach(function(t) { result.push(t.textContent); });
+  return result.join(', ');
+}
+
+function activateStep(step, color) {
+  var panel = document.getElementById('step-panel-' + step);
+  if (panel) { panel.style.opacity = '1'; panel.style.pointerEvents = 'auto'; }
+  var circle = document.getElementById('sc' + step);
+  if (circle) { circle.style.background = color; circle.style.color = step <= 2 ? '#fff' : '#fff'; circle.style.border = 'none'; }
+  var label = document.getElementById('sl' + step);
+  if (label) label.style.color = color;
+  var prevLine = document.getElementById('pl' + (step-1));
+  if (prevLine) prevLine.style.width = '100%';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function completeStep(step) {
+  if (step === 1) {
+    var age = document.getElementById('p-age').value.trim();
+    var complaint = document.getElementById('p-complaint').value.trim();
+    if (!age || !complaint) { alert('אנא מלאו גיל ותלונה עיקרית'); return; }
+    clinicalData.step1 = {
+      age: age,
+      gender: document.getElementById('p-gender').value,
+      marital: document.getElementById('p-marital').value,
+      employment: document.getElementById('p-employment').value,
+      complaint: complaint,
+      background: document.getElementById('p-background').value.trim(),
+      life: document.getElementById('p-life').value.trim(),
+      symptoms: getSelectedTags('symptoms-tags')
+    };
+    activateStep(2, 'var(--blue)');
+  }
+
+  if (step === 2) {
+    clinicalData.step2 = {
+      severity: document.getElementById('p-severity') ? document.getElementById('p-severity').value : '5',
+      frequency: document.getElementById('p-frequency') ? document.getElementById('p-frequency').value : 'לא צוין',
+      detail: document.getElementById('p-symptom-detail') ? document.getElementById('p-symptom-detail').value.trim() : '',
+      somatic: getSelectedTags('somatic-tags'),
+      risk: document.getElementById('p-risk') ? document.getElementById('p-risk').value : 'ללא סיכון'
+    };
+    activateStep(3, 'var(--purple)');
+  }
+
+  if (step === 3) {
+    var prevResp = document.querySelector('input[name="prev-response"]:checked');
+    clinicalData.step3 = {
+      prevMeds: document.getElementById('p-prev-meds').value.trim(),
+      currentMeds: document.getElementById('p-current-meds').value.trim(),
+      therapy: document.getElementById('p-therapy').value.trim(),
+      allergies: document.getElementById('p-allergies').value.trim(),
+      prevResponse: prevResp ? prevResp.value : 'לא צוין'
+    };
+    activateStep(4, 'var(--orange)');
+  }
+
+  if (step === 4) {
+    clinicalData.step4 = {
+      onset: document.getElementById('p-onset').value,
+      progression: document.getElementById('p-progression').value,
+      triggers: getSelectedTags(),
+      functioning: document.getElementById('p-functioning').value,
+      modifiers: document.getElementById('p-modifiers').value.trim(),
+      notes: document.getElementById('p-extra-notes').value.trim()
+    };
+    document.getElementById('pl4').style.width = '100%';
+    document.getElementById('sc-done').style.background = 'var(--teal)';
+    generateFinalReport();
+  }
+}
+
+async function generateFinalReport() {
+  var reportCard = document.getElementById('final-report-card');
+  var reportText = document.getElementById('final-report-text');
+  reportCard.style.display = 'block';
+  reportCard.scrollIntoView({ behavior: 'smooth' });
+
+  var ts = document.getElementById('report-timestamp');
+  if (ts) ts.textContent = 'נוצר: ' + new Date().toLocaleString('he-IL') + ' | SoulCare Clinical AI v2';
+
+  // Show scores bar
+  var scoresBar = document.getElementById('scores-bar');
+  if (scoresBar) {
+    scoresBar.style.display = 'flex';
+    document.getElementById('rep-phq9').textContent = clinicalData.step2.severity;
+    document.getElementById('rep-phq9-lvl').textContent = 'עוצמה /10';
+    document.getElementById('rep-gad7').textContent = clinicalData.step2.risk === 'ללא סיכון' ? '✓' : '⚠️';
+    document.getElementById('rep-gad7-lvl').textContent = clinicalData.step2.risk;
+    document.getElementById('rep-func').textContent = clinicalData.step4.functioning;
+    document.getElementById('rep-symptoms').textContent = clinicalData.step1.symptoms.split(',').filter(function(s){return s.trim();}).length;
+  }
+
+  reportText.innerHTML = '<div class="typing-indicator" style="padding:30px;justify-content:center"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><div style="text-align:center;font-size:13px;color:var(--text-muted);padding-bottom:20px">AI מנתח את כל הנתונים... כ-30 שניות</div>';
+
+  var d1 = clinicalData.step1;
+  var d2 = clinicalData.step2;
+  var d3 = clinicalData.step3;
+  var d4 = clinicalData.step4;
+
+  var sys = 'אתה פסיכיאטר בכיר עם ניסיון של 20 שנה. אתה כותב דוחות קליניים מקיפים ומדויקים. ענה תמיד בעברית בלבד. הדוח צריך להיות מקצועי, מובנה ומפורט.';
+
+  var prompt = 'כתוב דוח קליני מקיף ומפורט עבור המטופל הבא.\n\n';
+  prompt += '=== פרופיל ===\n';
+  prompt += 'גיל: ' + d1.age + ' | מין: ' + d1.gender + ' | מצב משפחתי: ' + d1.marital + ' | תעסוקה: ' + d1.employment + '\n';
+  prompt += 'תלונה עיקרית: ' + d1.complaint + '\n';
+  prompt += 'תסמינים: ' + (d1.symptoms || 'לא צוין') + '\n';
+  prompt += 'רקע רפואי: ' + (d1.background || 'לא צוין') + '\n';
+  prompt += 'נסיבות חיים: ' + (d1.life || 'לא צוין') + '\n\n';
+  prompt += '=== מיפוי תסמינים ===\n';
+  prompt += 'עוצמה כללית: ' + d2.severity + '/10\n';
+  prompt += 'תדירות: ' + d2.frequency + '\n';
+  prompt += 'תיאור מפורט: ' + (d2.detail || 'לא צוין') + '\n';
+  prompt += 'תסמינים גופניים: ' + (d2.somatic || 'לא צוין') + '\n';
+  prompt += 'הערכת סיכון: ' + d2.risk + '\n\n';
+  prompt += '=== היסטוריה טיפולית ===\n';
+  prompt += 'תרופות קודמות: ' + (d3.prevMeds || 'לא צוין') + '\n';
+  prompt += 'תרופות נוכחיות: ' + (d3.currentMeds || 'לא צוין') + '\n';
+  prompt += 'טיפול פסיכותרפי: ' + (d3.therapy || 'לא צוין') + '\n';
+  prompt += 'אלרגיות/מגבלות: ' + (d3.allergies || 'לא צוין') + '\n';
+  prompt += 'תגובה לטיפולים קודמים: ' + d3.prevResponse + '\n\n';
+  prompt += '=== ציר זמן ===\n';
+  prompt += 'התחלת תסמינים: ' + d4.onset + ' | התפתחות: ' + d4.progression + '\n';
+  prompt += 'אירועים מפעילים: ' + (d4.triggers || 'לא צוין') + '\n';
+  prompt += 'תפקוד יומיומי: ' + d4.functioning + '/10\n';
+  prompt += 'גורמים מחמירים/משפרים: ' + (d4.modifiers || 'לא צוין') + '\n';
+  prompt += 'הערות קליניות: ' + (d4.notes || 'לא צוין') + '\n\n';
+  prompt += 'כתוב דוח קליני מלא עם הסעיפים הבאים:\n\n';
+  prompt += '━━━ 1. סיכום קליני ━━━\n[תיאור תמציתי של המטופל והמצב]\n\n';
+  prompt += '━━━ 2. אבחנות מבדלות ━━━\n[רשום 3-5 אבחנות מדורגות לפי סבירות, עם אחוז ביטחון לכל אחת ונימוק]\n\n';
+  prompt += '━━━ 3. דגלים אדומים ━━━\n[תסמינים הדורשים תשומת לב מיידית]\n\n';
+  prompt += '━━━ 4. ניתוח פסיכומטרי ━━━\n[פרשנות ציוני PHQ-9 ו-GAD-7 בהקשר הקליני]\n\n';
+  prompt += '━━━ 5. המלצות טיפול תרופתי ━━━\n[זה הסעיף החשוב ביותר. רשום טבלה מפורטת של 3-5 תרופות מומלצות:\nלכל תרופה: שם גנרי + מסחרי, קבוצה תרופתית, מינון התחלתי מומלץ, מינון יעד, יתרונות לפרופיל זה, חסרונות/תופעות לוואי, התוויות נגד רלוונטיות. ציין בבירור שכל החלטה היא באחריות הרופא.]\n\n';
+  prompt += '━━━ 6. המלצות פסיכותרפיות ━━━\n[גישות טיפוליות מומלצות עם נימוק]\n\n';
+  prompt += '━━━ 7. שאלות בירור לפגישה הבאה ━━━\n[5-7 שאלות ממוקדות]\n\n';
+  prompt += '━━━ 8. מדדי הצלחה ומעקב ━━━\n[כיצד לעקוב אחר ההתקדמות, מה להעריך מחדש]';
+
+  try {
+    var reply = await callClaude(prompt, sys);
+    reportText.textContent = reply;
+  } catch(e) {
+    reportText.textContent = 'שגיאה: ' + e.message;
+  }
+}
+
+function copyReport() {
+  var text = document.getElementById('final-report-text');
+  if (!text || !text.textContent.trim()) { alert('הדוח עדיין לא נוצר'); return; }
+  navigator.clipboard.writeText(text.textContent).then(function() { alert('הדוח הועתק!'); });
+}
+
+function printReport() {
+  var text = document.getElementById('final-report-text');
+  if (!text || !text.textContent.trim()) { alert('הדוח עדיין לא נוצר'); return; }
+  var win = window.open('', '_blank');
+  win.document.write('<html dir="rtl"><head><title>דוח קליני SoulCare</title><style>body{font-family:Arial,sans-serif;padding:30px;line-height:1.8;font-size:14px;direction:rtl}pre{white-space:pre-wrap;font-family:Arial,sans-serif}</style></head><body><pre>' + text.textContent + '</pre></body></html>');
+  win.document.close();
+  win.print();
+}
+
+function resetAnalysis() {
+  clinicalData = { step1: null, step2: null, step3: null, step4: null };
+  document.getElementById('final-report-card').style.display = 'none';
+  document.querySelectorAll('.sym-tag').forEach(function(t) { t.classList.remove('selected'); });
+  ['p-age','p-complaint','p-background','p-life','p-prev-meds','p-current-meds','p-therapy','p-allergies','p-modifiers','p-extra-notes'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.value = '';
+  });
+  [2,3,4].forEach(function(s) {
+    var panel = document.getElementById('step-panel-' + s);
+    if (panel) { panel.style.opacity = '0.5'; panel.style.pointerEvents = 'none'; }
+  });
+  ['pl1','pl2','pl3','pl4'].forEach(function(id) {
+    var el = document.getElementById(id); if (el) el.style.width = '0%';
+  });
+  renderPHQ9();
+  renderGAD7();
+}
+
+function setResearchQuery(el) {}
+function analyzeCase() {}
+function searchResearch() {}
+function detectPatterns() {}
+function generateSummary() {}
+function copySummary() {}
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(btn, targetId) {
+  btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['analysis-tab-overview', 'analysis-tab-cases', 'analysis-tab-report'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = id === targetId ? '' : 'none';
+  });
+}
+
+// ============================================================
+// LANGUAGE
+// ============================================================
+function setLang(lang) {
+  appState.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+// ============================================================
+// CLAUDE API CALL
+// ============================================================
+async function callClaude(userMessage, systemPrompt = null, history = []) {
+  if (!appState.apiKey) throw new Error('אין מפתח API');
+
+  // Build clean messages array — no duplicate roles
+  const baseHistory = history.slice(-8).filter(m => m.role && m.content);
+  const messages = [...baseHistory, { role: 'user', content: userMessage }];
+
+  const body = {
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1000,
+    messages
+  };
+
+  if (systemPrompt) body.system = systemPrompt;
+
+  let response;
+  console.log('API Key length:', appState.apiKey ? appState.apiKey.length : 0);
+  console.log('API Key prefix:', appState.apiKey ? appState.apiKey.substring(0,15) : 'EMPTY');
+  try {
+    response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': appState.apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify(body)
+    });
+  } catch (networkErr) {
+    const isFileProtocol = window.location.protocol === 'file:';
+    const hint = isFileProtocol ? ' (הקובץ נפתח מהדיסק — נסו להריץ עם שרת מקומי, ראו הוראות)' : '';
+    throw new Error('שגיאת רשת' + hint + ': ' + networkErr.message);
+  }
+
+  if (!response.ok) {
+    let errMsg = 'שגיאת API (' + response.status + ')';
+    try {
+      const err = await response.json();
+      if (response.status === 401) errMsg = '❌ מפתח API שגוי — ודאו שהעתקתם את המפתח במלואו מ-console.anthropic.com';
+      else if (response.status === 429) errMsg = '⏳ חרגתם ממגבלת הבקשות — המתינו רגע ונסו שוב';
+      else errMsg = err.error?.message || errMsg;
+    } catch {}
+    throw new Error(errMsg);
+  }
+
+  const data = await response.json();
+  if (!data.content || !data.content.length) throw new Error('תגובה ריקה מה-API');
+  return data.content.map(c => c.text || '').join('');
+}
+function setupMobileNav() {
+  var nav = document.getElementById('mobile-nav');
+  if (!nav) return;
+  if (window.innerWidth <= 768) {
+    nav.style.display = 'flex';
+    // Update label based on role
+    var lbl = document.getElementById('mnav-main-label');
+    if (lbl) lbl.textContent = appState.role === 'psychiatrist' ? 'מטופלים' : 'יומן';
+  }
+}
+
+function mobileNav(section) {
+  var pages = {
+    home: appState.role === 'psychiatrist' ? 'dashboard' : 'companion',
+    main: appState.role === 'psychiatrist' ? 'patients' : 'mood',
+    analysis: 'analysis',
+    alerts: 'alerts',
+    more: appState.role === 'psychiatrist' ? 'recommendations' : 'recommendations'
+  };
+  if (pages[section]) navigateTo(pages[section]);
+  // Highlight active
+  ['home','main','analysis','alerts','more'].forEach(function(s) {
+    var el = document.getElementById('mnav-' + s);
+    if (el) el.style.background = s === section ? 'rgba(0,212,170,0.15)' : '';
+  });
+}
+
+window.addEventListener('resize', setupMobileNav);
+</script>
+</body>
+</html>
