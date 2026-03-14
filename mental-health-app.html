@@ -1554,37 +1554,64 @@
         <button onclick="completeStep(1)" style="width:100%;background:linear-gradient(135deg,var(--teal),#00b894);border:none;border-radius:10px;padding:12px;color:#0d1117;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך לשאלוני סטנדרט ←</button>
       </div>
 
-      <!-- STEP 2: Standardized Questionnaires -->
+      <!-- STEP 2: AI Deep Symptom Mapping -->
       <div class="card" id="step-panel-2" style="border-top:3px solid var(--blue);margin-bottom:16px;opacity:0.5;pointer-events:none">
-        <div class="card-title">📊 שלב 2 — שאלוני אבחון סטנדרטיים</div>
-        <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">שאלוני PHQ-9 ו-GAD-7 המקובלים בפסיכיאטריה הבינלאומית</p>
-
-        <!-- PHQ-9 -->
-        <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:14px;border:1px solid var(--border)">
-          <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px">PHQ-9 — סולם דיכאון</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">במהלך השבועיים האחרונים, כמה פעמים סבלתם מהבעיות הבאות? (0=כלל לא, 1=מספר ימים, 2=יותר ממחצית הזמן, 3=כמעט כל יום)</div>
-          <div id="phq9-items"></div>
-          <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:8px;font-size:13px">
-            ציון PHQ-9: <strong id="phq9-score" style="color:var(--blue);font-size:18px">0</strong>/27
-            <span id="phq9-level" style="font-size:11px;color:var(--text-muted);margin-right:8px"></span>
+        <div class="card-title">🧠 שלב 2 — מיפוי תסמינים מעמיק</div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">ה-AI ינתח את העומק הקליני של כל תסמין שסומן בשלב הקודם</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">עוצמת התסמינים הכללית</label>
+            <div style="display:flex;align-items:center;gap:10px">
+              <input type="range" id="p-severity" min="1" max="10" value="5" oninput="document.getElementById('sev-val').textContent=this.value" style="flex:1;accent-color:var(--blue)">
+              <span id="sev-val" style="font-size:18px;font-weight:800;color:var(--blue);min-width:24px">5</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim)"><span>קל מאוד</span><span>קיצוני</span></div>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תדירות התסמינים</label>
+            <select id="p-frequency" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>כמה פעמים בשנה</option>
+              <option>פעם בחודש</option>
+              <option>כמה פעמים בחודש</option>
+              <option>כמה פעמים בשבוע</option>
+              <option>כמעט כל יום</option>
+              <option>כל יום ולאורך כל היום</option>
+            </select>
           </div>
         </div>
-
-        <!-- GAD-7 -->
-        <div style="background:var(--surface2);border-radius:10px;padding:14px;margin-bottom:14px;border:1px solid var(--border)">
-          <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:4px">GAD-7 — סולם חרדה</div>
-          <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px">במהלך השבועיים האחרונים: (0=כלל לא, 1=מספר ימים, 2=יותר ממחצית הזמן, 3=כמעט כל יום)</div>
-          <div id="gad7-items"></div>
-          <div style="margin-top:10px;padding:10px;background:var(--surface);border-radius:8px;font-size:13px">
-            ציון GAD-7: <strong id="gad7-score" style="color:var(--purple);font-size:18px">0</strong>/21
-            <span id="gad7-level" style="font-size:11px;color:var(--text-muted);margin-right:8px"></span>
+        <div style="margin-bottom:12px">
+          <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תיאור מפורט של התסמינים במילים</label>
+          <textarea id="p-symptom-detail" placeholder="תאר את החוויה הסובייקטיבית — מה המטופל מרגיש, מתי, כמה זמן נמשך כל אפיזודה, מה מקדים אותה..." style="width:100%;height:90px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px;resize:none;direction:rtl"></textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">תסמינים גופניים נלווים</label>
+            <div style="display:flex;flex-wrap:wrap;gap:6px" id="somatic-tags">
+              <span class="sym-tag" onclick="toggleTag(this)">כאבי ראש</span>
+              <span class="sym-tag" onclick="toggleTag(this)">כאבי בטן</span>
+              <span class="sym-tag" onclick="toggleTag(this)">דפיקות לב</span>
+              <span class="sym-tag" onclick="toggleTag(this)">קוצר נשימה</span>
+              <span class="sym-tag" onclick="toggleTag(this)">רעד</span>
+              <span class="sym-tag" onclick="toggleTag(this)">הזעה</span>
+              <span class="sym-tag" onclick="toggleTag(this)">שינויי שינה</span>
+              <span class="sym-tag" onclick="toggleTag(this)">שינויי תיאבון</span>
+            </div>
+          </div>
+          <div>
+            <label style="font-size:12px;color:var(--text-muted);display:block;margin-bottom:5px">סיכון לעצמו/לאחרים</label>
+            <select id="p-risk" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:Heebo,sans-serif;font-size:13px">
+              <option>ללא סיכון</option>
+              <option>מחשבות פסיביות בלי כוונה</option>
+              <option>מחשבות אקטיביות ללא תכנון</option>
+              <option>תכנית קיימת — דחוף</option>
+              <option>ניסיון עצמי בעבר</option>
+            </select>
           </div>
         </div>
-
         <button onclick="completeStep(2)" style="width:100%;background:linear-gradient(135deg,var(--blue),#1a6fd4);border:none;border-radius:10px;padding:12px;color:white;font-family:Heebo,sans-serif;font-size:14px;font-weight:700;cursor:pointer">המשך להיסטוריה טיפולית ←</button>
       </div>
 
-      <!-- STEP 3: Treatment History -->
+            <!-- STEP 3: Treatment History -->
       <div class="card" id="step-panel-3" style="border-top:3px solid var(--purple);margin-bottom:16px;opacity:0.5;pointer-events:none">
         <div class="card-title">💊 שלב 3 — היסטוריה טיפולית</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
@@ -1700,13 +1727,13 @@
         <!-- Scores summary bar -->
         <div id="scores-bar" style="display:none;background:var(--surface2);border-radius:12px;padding:16px;margin-bottom:20px;display:flex;gap:20px;flex-wrap:wrap">
           <div style="text-align:center">
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">PHQ-9</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">עוצמת תסמינים</div>
             <div id="rep-phq9" style="font-size:24px;font-weight:800;color:var(--blue)">-</div>
             <div id="rep-phq9-lvl" style="font-size:11px;color:var(--text-muted)"></div>
           </div>
           <div style="width:1px;background:var(--border)"></div>
           <div style="text-align:center">
-            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">GAD-7</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">סיכון</div>
             <div id="rep-gad7" style="font-size:24px;font-weight:800;color:var(--purple)">-</div>
             <div id="rep-gad7-lvl" style="font-size:11px;color:var(--text-muted)"></div>
           </div>
@@ -1863,18 +1890,20 @@ function buildNav() {
   const nav = document.getElementById('main-nav');
   const isDoc = appState.role === 'psychiatrist';
 
-  const items = [
+  const items = isDoc ? [
+    // PSYCHIATRIST nav only
     { icon: '🏠', label: 'לוח בקרה', page: 'dashboard', section: 'כללי' },
-    ...(isDoc ? [] : [{ icon: '📓', label: 'יומן מצב רוח', page: 'mood' }]),
-    { icon: '🤝', label: 'העוזר האישי', page: 'chat' },
+    { icon: '👥', label: 'מטופלים', page: 'patients' },
     { icon: '🔔', label: 'התראות', page: 'alerts', badge: true },
-    ...(isDoc ? [
-      { icon: '👥', label: 'מטופלים', page: 'patients', section: 'קליני' },
-      { icon: '🔬', label: 'ניתוח AI', page: 'analysis' }
-    ] : [
-      { icon: '📓', label: 'יומן מצב רוח', page: 'mood', section: 'אישי' },
-      { icon: '💡', label: 'המלצות', page: 'recommendations' }
-    ])
+    { icon: '🔬', label: 'ניתוח AI', page: 'analysis', section: 'כלים קליניים' },
+    { icon: '💡', label: 'המלצות', page: 'recommendations' }
+  ] : [
+    // PATIENT nav only
+    { icon: '🏠', label: 'ראשי', page: 'dashboard', section: 'אישי' },
+    { icon: '🤝', label: 'העוזר האישי', page: 'chat' },
+    { icon: '📓', label: 'יומן מצב רוח', page: 'mood' },
+    { icon: '🔔', label: 'התראות', page: 'alerts', badge: true },
+    { icon: '💡', label: 'המלצות', page: 'recommendations' }
   ];
 
   let html = '';
@@ -1895,6 +1924,11 @@ function buildNav() {
 }
 
 function showPage(page) {
+  // Block psychiatrist pages from patients
+  const doctorOnly = ['patients', 'analysis'];
+  const patientOnly = ['mood', 'recommendations'];
+  if (appState.role !== 'psychiatrist' && doctorOnly.includes(page)) return;
+  if (appState.role === 'psychiatrist' && patientOnly.includes(page)) return;
   document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const navEl = document.getElementById('nav-' + page);
@@ -2019,13 +2053,138 @@ function saveMoodEntry() {
   if (!appState.selectedMood) { alert('אנא בחרו מצב רוח'); return; }
   const note = document.getElementById('mood-note').value;
   const today = new Date().toISOString().split('T')[0];
-  appState.moodHistory.push({ date: today, mood: appState.selectedMood, note });
+  const entry = { date: today, mood: appState.selectedMood, note, time: new Date().toISOString() };
+  appState.moodHistory.push(entry);
   renderMoodCalendar();
   drawCharts();
-  alert('✅ הרשומה נשמרה בהצלחה!');
+
+  // 🤖 AI PATTERN DETECTION — run after every entry
+  detectMoodPatterns(entry);
+
   document.getElementById('mood-note').value = '';
   appState.selectedMood = null;
   document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+
+  // Confirm save
+  const saveBtn = document.querySelector('.btn-save');
+  if (saveBtn) { saveBtn.textContent = '✅ נשמר!'; setTimeout(() => saveBtn.textContent = '💾 שמירת הרשומה', 2000); }
+}
+
+async function detectMoodPatterns(newEntry) {
+  const history = appState.moodHistory;
+  if (history.length < 3) return; // Need minimum data
+
+  const recent = history.slice(-7); // Last 7 entries
+  const avgRecent = recent.reduce((s,e) => s + e.mood, 0) / recent.length;
+  const avgAll = history.reduce((s,e) => s + e.mood, 0) / history.length;
+  const lastMoods = recent.map(e => e.mood);
+  const trend = lastMoods[lastMoods.length-1] - lastMoods[0];
+
+  // Pattern flags
+  const flags = [];
+  if (newEntry.mood === 1) flags.push('crisis'); // Very low mood
+  if (avgRecent < 2.0) flags.push('sustained_low'); // Sustained low
+  if (trend <= -2 && history.length >= 5) flags.push('sharp_decline'); // Sharp drop
+  if (newEntry.mood === 5 && history.length >= 3) {
+    const prevAvg = history.slice(-4,-1).reduce((s,e) => s + e.mood, 0) / 3;
+    if (prevAvg < 2.5 && newEntry.mood === 5) flags.push('sudden_elevation'); // Mania risk
+  }
+  // Rapid oscillation — mania/depression cycling
+  if (recent.length >= 4) {
+    let swings = 0;
+    for (let i = 1; i < recent.length; i++) {
+      if (Math.abs(recent[i].mood - recent[i-1].mood) >= 3) swings++;
+    }
+    if (swings >= 2) flags.push('rapid_cycling');
+  }
+
+  if (flags.length === 0) return;
+
+  // Update current-mood-display
+  const moodEmojis = {5:'😄',4:'🙂',3:'😐',2:'😔',1:'😢'};
+  const el = document.getElementById('current-mood-display');
+  if (el) el.textContent = moodEmojis[newEntry.mood] || '—';
+
+  // Build AI alert prompt
+  const alertLevels = {
+    crisis: { level: 'critical', icon: '🚨', title: 'מצב רוח בשפל קיצוני' },
+    sustained_low: { level: 'high', icon: '⚠️', title: 'דיכאון מתמשך — ממוצע מתחת ל-2' },
+    sharp_decline: { level: 'high', icon: '📉', title: 'ירידה חדה במצב הרוח' },
+    sudden_elevation: { level: 'warning', icon: '📈', title: 'עלייה פתאומית חשודה — בדיקת מאניה' },
+    rapid_cycling: { level: 'high', icon: '🔄', title: 'תנודות קיצוניות — ייתכן cycling' }
+  };
+
+  const mainFlag = flags[0];
+  const alertInfo = alertLevels[mainFlag];
+
+  // Add to alerts list
+  const newAlert = {
+    level: alertInfo.level === 'critical' ? 'critical' : 'warning',
+    icon: alertInfo.icon,
+    title: alertInfo.title,
+    desc: 'זוהה אוטומטית ע"י AI | מצב רוח ' + newEntry.mood + '/5 | ממוצע 7 ימים: ' + avgRecent.toFixed(1),
+    time: 'עכשיו',
+    patient: appState.userName || 'המטופל',
+    aiDetected: true
+  };
+  appState.alerts.unshift(newAlert);
+  updateAlertBadge();
+
+  // Show in-app notification
+  showAIAlert(newAlert, flags);
+
+  // If critical, also generate AI analysis
+  if (flags.includes('crisis') || flags.includes('sustained_low') || flags.includes('rapid_cycling')) {
+    await generateAutoAlert(flags, newEntry, avgRecent, avgAll);
+  }
+}
+
+async function generateAutoAlert(flags, entry, avgRecent, avgAll) {
+  const flagDesc = {
+    crisis: 'מצב רוח בשפל קיצוני (1/5)',
+    sustained_low: 'ממוצע מצב רוח מתחת ל-2.0 בשבוע האחרון',
+    sharp_decline: 'ירידה חדה של 2+ נקודות',
+    sudden_elevation: 'עלייה פתאומית מדיכאון לאופוריה — חשד למאניה',
+    rapid_cycling: 'תנודות קיצוניות של 3+ נקודות בין ימים סמוכים'
+  };
+
+  const prompt = 'מטופל דיווח: מצב רוח ' + entry.mood + '/5. ממוצע 7 ימים: ' + avgRecent.toFixed(1) + '\n' +
+    'דפוסים שזוהו: ' + flags.map(f => flagDesc[f]).join(' | ') + '\n' +
+    'הערת המטופל: ' + (entry.note || 'לא נכתבה') + '\n\n' +
+    'כתוב התראה קלינית קצרה לפסיכיאטר (3-4 משפטים): מה זוהה, מה הסיכון, מה מומלץ לבדוק בפגישה הבאה.';
+
+  try {
+    const aiText = await callClaude(prompt, 'אתה מערכת ניטור קלינית. כתוב התראות קצרות, מדויקות וקליניות בעברית.');
+    // Store AI-generated clinical note in alert
+    appState.alerts[0].clinicalNote = aiText;
+  } catch(e) { console.log('Alert AI error:', e); }
+}
+
+function showAIAlert(alert, flags) {
+  const existing = document.getElementById('ai-alert-toast');
+  if (existing) existing.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'ai-alert-toast';
+  const isRTL = document.documentElement.dir === 'rtl' || true;
+  toast.style.cssText = 'position:fixed;top:80px;left:50%;transform:translateX(-50%);z-index:99999;' +
+    'background:' + (alert.level === 'critical' ? 'rgba(248,81,73,0.95)' : 'rgba(240,136,62,0.95)') + ';' +
+    'color:white;padding:16px 24px;border-radius:14px;font-family:Heebo,sans-serif;direction:rtl;' +
+    'max-width:380px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.4);text-align:right';
+  toast.innerHTML = '<div style="font-size:16px;font-weight:800;margin-bottom:4px">' + alert.icon + ' ' + alert.title + '</div>' +
+    '<div style="font-size:13px;opacity:0.9">' + alert.desc + '</div>' +
+    '<div style="font-size:11px;margin-top:8px;opacity:0.7">🤖 זוהה אוטומטית ע"י SoulCare AI</div>';
+  document.body.appendChild(toast);
+  setTimeout(() => { if (toast.parentNode) toast.remove(); }, 6000);
+}
+
+function updateAlertBadge() {
+  const badge = document.getElementById('alert-count-badge');
+  if (badge) {
+    const count = appState.alerts.filter(a => a.level === 'critical' || a.level === 'warning').length;
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline' : 'none';
+  }
 }
 
 async function analyzeWithAI() {
@@ -2269,8 +2428,21 @@ async function sendMessage() {
     ? 'מצבי רוח שדווחו בשיחה זו: ' + sessionMoods.map(m => m.val + '/5').join(' → ')
     : '';
 
-  var sysP = 'אתה עוזר אישי חם ותומך למטופל בשם ' + appState.userName + '.'; sysP += ' תפקידך: להקשיב, לתמוך רגשית, לעודד ולחזק את המטופל.'; sysP += ' תן עצות והכוונה מעשיות. זהה סימני מצוקה והפנה לפסיכיאטר לשאלות רפואיות.'; sysP += ' ' + sessionMoodSummary; sysP += ' ענה בעברית, בחמימות. אל תמליץ על תרופות.';
-  var sysD = 'אתה עוזר קליני AI לפסיכיאטרים. ענה בעברית, בצורה מקצועית. החלטות קליניות הן באחריות הרופא.';
+  const moodHistory = appState.moodHistory || [];
+  const recentMoods = moodHistory.slice(-7).map(function(e){return e.mood;});
+  const avgMood = recentMoods.length ? (recentMoods.reduce(function(a,b){return a+b;},0)/recentMoods.length).toFixed(1) : 'אין נתונים';
+  const aiAlerts = (appState.alerts || []).filter(function(a){return a.aiDetected;}).length;
+
+  var sysP = 'אתה העוזר האישי SoulCare — חם, אמפתי ואינטליגנט. אתה מתמחה בתמיכה נפשית.\n';
+  sysP += 'שם המשתמש: ' + appState.userName + '\n';
+  sysP += 'ממוצע מצב רוח (7 ימים): ' + avgMood + '/5\n';
+  sysP += 'מספר רשומות: ' + moodHistory.length + '\n';
+  if (sessionMoodSummary) sysP += sessionMoodSummary + '\n';
+  if (aiAlerts > 0) sysP += 'שים לב: זוהו ' + aiAlerts + ' דפוסים חריגים לאחרונה.\n';
+  sysP += '\nתפקידך:\n1. להקשיב ולהיות נוכח רגשית\n2. לזהות שינויי מצב רוח בתוך השיחה ולהגיב בהתאם\n3. לאתגר בעדינות דפוסי חשיבה שליליים\n4. לשאול שאלות מעמיקות שיעזרו למשתמש להבין את עצמו\n5. כאשר מזהה סימני מצוקה — לאחד בין תמיכה לעידוד פנייה לפסיכיאטר\n6. לא לתת המלצות רפואיות או תרופתיות\nענה בעברית, בחמימות, בקיצור (לא יותר מ-5 משפטים בדרך כלל). היה אנושי, לא רובוטי.';
+
+  var sysD = 'אתה עוזר פסיכיאטרי קליני מקצועי ומנוסה.\nתפקידך:\n1. לסייע בניתוח מקרים קליניים מורכבים\n2. להציע אבחנות מבדלות מבוססות evidence\n3. לספק המלצות תרופתיות ופסיכותרפיות\n4. לזהות דפוסים חריגים בנתוני מטופלים\n5. לספק מידע על פרוטוקולי טיפול עדכניים\nענה בעברית, בצורה קלינית ומדויקת. ציין שהחלטות קליניות הן באחריות הרופא בלבד.';
+
   const systemPrompt = isDoc ? sysD : sysP;
 
   appState.chatHistory.push({ role: 'user', content: text });
@@ -2444,70 +2616,8 @@ var GAD7_QUESTIONS = [
   'תחושת פחד שמשהו רע עלול לקרות'
 ];
 
-function renderAnalysis() {
-  renderPHQ9();
-  renderGAD7();
-}
 
-function renderPHQ9() {
-  var container = document.getElementById('phq9-items');
-  if (!container) return;
-  var html = '';
-  PHQ9_QUESTIONS.forEach(function(q, i) {
-    html += '<div style="margin-bottom:10px;padding:10px;background:var(--surface);border-radius:8px">';
-    html += '<div style="font-size:12px;color:var(--text);margin-bottom:6px;font-weight:600">' + (i+1) + '. ' + q + '</div>';
-    html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
-    ['0 - כלל לא','1 - מספר ימים','2 - מחצית הזמן','3 - כמעט כל יום'].forEach(function(opt, v) {
-      html += '<label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;background:var(--surface2);padding:4px 8px;border-radius:6px;border:1px solid var(--border)">';
-      html += '<input type="radio" name="phq9-' + i + '" value="' + v + '" onchange="updatePHQ9Score()"> ' + opt + '</label>';
-    });
-    html += '</div></div>';
-  });
-  container.innerHTML = html;
-}
-
-function renderGAD7() {
-  var container = document.getElementById('gad7-items');
-  if (!container) return;
-  var html = '';
-  GAD7_QUESTIONS.forEach(function(q, i) {
-    html += '<div style="margin-bottom:10px;padding:10px;background:var(--surface);border-radius:8px">';
-    html += '<div style="font-size:12px;color:var(--text);margin-bottom:6px;font-weight:600">' + (i+1) + '. ' + q + '</div>';
-    html += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
-    ['0 - כלל לא','1 - מספר ימים','2 - מחצית הזמן','3 - כמעט כל יום'].forEach(function(opt, v) {
-      html += '<label style="display:flex;align-items:center;gap:4px;font-size:11px;cursor:pointer;background:var(--surface2);padding:4px 8px;border-radius:6px;border:1px solid var(--border)">';
-      html += '<input type="radio" name="gad7-' + i + '" value="' + v + '" onchange="updateGAD7Score()"> ' + opt + '</label>';
-    });
-    html += '</div></div>';
-  });
-  container.innerHTML = html;
-}
-
-function updatePHQ9Score() {
-  var total = 0;
-  for (var i = 0; i < 9; i++) {
-    var el = document.querySelector('input[name="phq9-' + i + '"]:checked');
-    if (el) total += parseInt(el.value);
-  }
-  var el = document.getElementById('phq9-score');
-  if (el) el.textContent = total;
-  var lvl = total <= 4 ? 'מינימלי' : total <= 9 ? 'קל' : total <= 14 ? 'בינוני' : total <= 19 ? 'בינוני-חמור' : 'חמור';
-  var lvlEl = document.getElementById('phq9-level');
-  if (lvlEl) lvlEl.textContent = '— ' + lvl;
-}
-
-function updateGAD7Score() {
-  var total = 0;
-  for (var i = 0; i < 7; i++) {
-    var el = document.querySelector('input[name="gad7-' + i + '"]:checked');
-    if (el) total += parseInt(el.value);
-  }
-  var el = document.getElementById('gad7-score');
-  if (el) el.textContent = total;
-  var lvl = total <= 4 ? 'מינימלי' : total <= 9 ? 'קל' : total <= 14 ? 'בינוני' : 'חמור';
-  var lvlEl = document.getElementById('gad7-level');
-  if (lvlEl) lvlEl.textContent = '— ' + lvl;
-}
+function renderAnalysis() {}
 
 function toggleTag(el) {
   el.classList.toggle('selected');
@@ -2553,11 +2663,13 @@ function completeStep(step) {
   }
 
   if (step === 2) {
-    var phq9 = parseInt(document.getElementById('phq9-score').textContent) || 0;
-    var gad7 = parseInt(document.getElementById('gad7-score').textContent) || 0;
-    var phq9Lvl = phq9 <= 4 ? 'מינימלי' : phq9 <= 9 ? 'קל' : phq9 <= 14 ? 'בינוני' : phq9 <= 19 ? 'בינוני-חמור' : 'חמור';
-    var gad7Lvl = gad7 <= 4 ? 'מינימלי' : gad7 <= 9 ? 'קל' : gad7 <= 14 ? 'בינוני' : 'חמור';
-    clinicalData.step2 = { phq9: phq9, phq9Level: phq9Lvl, gad7: gad7, gad7Level: gad7Lvl };
+    clinicalData.step2 = {
+      severity: document.getElementById('p-severity') ? document.getElementById('p-severity').value : '5',
+      frequency: document.getElementById('p-frequency') ? document.getElementById('p-frequency').value : 'לא צוין',
+      detail: document.getElementById('p-symptom-detail') ? document.getElementById('p-symptom-detail').value.trim() : '',
+      somatic: getSelectedTags('somatic-tags'),
+      risk: document.getElementById('p-risk') ? document.getElementById('p-risk').value : 'ללא סיכון'
+    };
     activateStep(3, 'var(--purple)');
   }
 
@@ -2601,10 +2713,10 @@ async function generateFinalReport() {
   var scoresBar = document.getElementById('scores-bar');
   if (scoresBar) {
     scoresBar.style.display = 'flex';
-    document.getElementById('rep-phq9').textContent = clinicalData.step2.phq9;
-    document.getElementById('rep-phq9-lvl').textContent = clinicalData.step2.phq9Level;
-    document.getElementById('rep-gad7').textContent = clinicalData.step2.gad7;
-    document.getElementById('rep-gad7-lvl').textContent = clinicalData.step2.gad7Level;
+    document.getElementById('rep-phq9').textContent = clinicalData.step2.severity;
+    document.getElementById('rep-phq9-lvl').textContent = 'עוצמה /10';
+    document.getElementById('rep-gad7').textContent = clinicalData.step2.risk === 'ללא סיכון' ? '✓' : '⚠️';
+    document.getElementById('rep-gad7-lvl').textContent = clinicalData.step2.risk;
     document.getElementById('rep-func').textContent = clinicalData.step4.functioning;
     document.getElementById('rep-symptoms').textContent = clinicalData.step1.symptoms.split(',').filter(function(s){return s.trim();}).length;
   }
@@ -2625,9 +2737,12 @@ async function generateFinalReport() {
   prompt += 'תסמינים: ' + (d1.symptoms || 'לא צוין') + '\n';
   prompt += 'רקע רפואי: ' + (d1.background || 'לא צוין') + '\n';
   prompt += 'נסיבות חיים: ' + (d1.life || 'לא צוין') + '\n\n';
-  prompt += '=== שאלוני סטנדרט ===\n';
-  prompt += 'PHQ-9: ' + d2.phq9 + '/27 (' + d2.phq9Level + ')\n';
-  prompt += 'GAD-7: ' + d2.gad7 + '/21 (' + d2.gad7Level + ')\n\n';
+  prompt += '=== מיפוי תסמינים ===\n';
+  prompt += 'עוצמה כללית: ' + d2.severity + '/10\n';
+  prompt += 'תדירות: ' + d2.frequency + '\n';
+  prompt += 'תיאור מפורט: ' + (d2.detail || 'לא צוין') + '\n';
+  prompt += 'תסמינים גופניים: ' + (d2.somatic || 'לא צוין') + '\n';
+  prompt += 'הערכת סיכון: ' + d2.risk + '\n\n';
   prompt += '=== היסטוריה טיפולית ===\n';
   prompt += 'תרופות קודמות: ' + (d3.prevMeds || 'לא צוין') + '\n';
   prompt += 'תרופות נוכחיות: ' + (d3.currentMeds || 'לא צוין') + '\n';
